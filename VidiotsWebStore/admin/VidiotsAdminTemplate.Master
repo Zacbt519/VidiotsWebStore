@@ -1,0 +1,49 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="VidiotsAdminTemplate.Master.cs" Inherits="VidiotsWebStore.VidiotsAdminTemplate" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <title></title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="css/styles.css" rel="stylesheet" />
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div>
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">Vidiots Retro Store</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="AddCategory.aspx">Add New Category</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="AddProduct.aspx">Add New Product</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="CategoryAdmin.aspx">Categories</a>
+                    </li>
+                </ul>
+
+                <div class="form-inline ml-auto" id="search">
+                    <a class="nav-link" href="#" style="color: #fff;">Cart</a>
+                    &nbsp;
+                <asp:TextBox ID="txtSearch" CssClass="form-control mr-sm-2" placeholder="Search" aria-label="Search" runat="server" MaxLength="50"></asp:TextBox>
+                    <asp:Button ID="btnSearch" CssClass="btn btn-outline-light my-2 my-sm-0" runat="server" Text="Search" OnClick="btnSearch_Click" CausesValidation="false" />
+                </div>
+            </nav>
+            <br />
+            <div class="container-fluid">
+                            <asp:Label ID="lblMasterMessage" runat="server" Text="" CssClass="errorMessage"></asp:Label>
+
+            </div>
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+    </form>
+</body>
+</html>
