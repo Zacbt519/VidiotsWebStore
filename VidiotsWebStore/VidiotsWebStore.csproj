@@ -90,6 +90,7 @@
     <Content Include="ProductsByCategory.aspx" />
     <Content Include="ProductsByType.aspx" />
     <Content Include="SearchResults.aspx" />
+    <Content Include="UpdateAccount.aspx" />
     <Content Include="VidiotsTemplate.Master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -213,6 +214,13 @@
     </Compile>
     <Compile Include="SearchResults.aspx.designer.cs">
       <DependentUpon>SearchResults.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UpdateAccount.aspx.cs">
+      <DependentUpon>UpdateAccount.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UpdateAccount.aspx.designer.cs">
+      <DependentUpon>UpdateAccount.aspx</DependentUpon>
     </Compile>
     <Compile Include="VidiotsTemplate.Master.cs">
       <DependentUpon>VidiotsTemplate.Master</DependentUpon>
