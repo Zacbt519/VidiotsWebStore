@@ -71,6 +71,7 @@
     <Content Include="admin\AddCategory.aspx" />
     <Content Include="admin\AddProduct.aspx" />
     <Content Include="admin\AdminSearchResults.aspx" />
+    <Content Include="ArchiveCustomer.aspx" />
     <Content Include="Categories.aspx" />
     <Content Include="admin\CategoryAdmin.aspx" />
     <Content Include="CreateAccount.aspx" />
@@ -131,6 +132,13 @@
     </Compile>
     <Compile Include="admin\VidiotsAdminTemplate.Master.designer.cs">
       <DependentUpon>VidiotsAdminTemplate.Master</DependentUpon>
+    </Compile>
+    <Compile Include="ArchiveCustomer.aspx.cs">
+      <DependentUpon>ArchiveCustomer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ArchiveCustomer.aspx.designer.cs">
+      <DependentUpon>ArchiveCustomer.aspx</DependentUpon>
     </Compile>
     <Compile Include="Categories.aspx.cs">
       <DependentUpon>Categories.aspx</DependentUpon>

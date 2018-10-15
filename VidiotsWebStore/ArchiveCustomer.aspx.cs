@@ -7,14 +7,9 @@ using System.Web.UI.WebControls;
 
 namespace VidiotsWebStore
 {
-    public partial class CreateAccount : System.Web.UI.Page
+    public partial class ArchiveCustomer : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        protected void btnSubmit_Click(object sender, EventArgs e)
         {
 
         }

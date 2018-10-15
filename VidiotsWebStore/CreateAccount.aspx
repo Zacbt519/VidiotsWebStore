@@ -79,7 +79,7 @@
                 </div>
                 <br /><br />
                 <div class="form-inline">
-                    <asp:Button ID="btnSubmit" runat="server" Text="Create Account" CssClass="btn btn-outline-success" /><button type="reset" class="btn btn-outline-warning" runat="server" id="btnReset" style="margin-left: 1%;">Clear Form</button>
+                    <asp:Button ID="btnSubmit" runat="server" Text="Create Account" CssClass="btn btn-outline-success" OnClick="btnSubmit_Click" /><button type="reset" class="btn btn-outline-warning" runat="server" id="btnReset" style="margin-left: 1%;">Clear Form</button>
                 </div>
             </div>
         </div>
