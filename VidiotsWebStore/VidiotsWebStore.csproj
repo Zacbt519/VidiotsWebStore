@@ -71,8 +71,10 @@
     <Content Include="admin\AddCategory.aspx" />
     <Content Include="admin\AddProduct.aspx" />
     <Content Include="admin\AdminSearchResults.aspx" />
+    <Content Include="ArchiveCustomer.aspx" />
     <Content Include="Categories.aspx" />
     <Content Include="admin\CategoryAdmin.aspx" />
+    <Content Include="CreateAccount.aspx" />
     <Content Include="img\Airbender.jpg" />
     <Content Include="img\DareToBeStupid.jpg" />
     <Content Include="img\EvenWorse.jpg" />
@@ -88,6 +90,7 @@
     <Content Include="ProductsByCategory.aspx" />
     <Content Include="ProductsByType.aspx" />
     <Content Include="SearchResults.aspx" />
+    <Content Include="UpdateAccount.aspx" />
     <Content Include="VidiotsTemplate.Master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -131,6 +134,13 @@
     <Compile Include="admin\VidiotsAdminTemplate.Master.designer.cs">
       <DependentUpon>VidiotsAdminTemplate.Master</DependentUpon>
     </Compile>
+    <Compile Include="ArchiveCustomer.aspx.cs">
+      <DependentUpon>ArchiveCustomer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ArchiveCustomer.aspx.designer.cs">
+      <DependentUpon>ArchiveCustomer.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Categories.aspx.cs">
       <DependentUpon>Categories.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -144,6 +154,13 @@
     </Compile>
     <Compile Include="admin\CategoryAdmin.aspx.designer.cs">
       <DependentUpon>CategoryAdmin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CreateAccount.aspx.cs">
+      <DependentUpon>CreateAccount.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CreateAccount.aspx.designer.cs">
+      <DependentUpon>CreateAccount.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -197,6 +214,13 @@
     </Compile>
     <Compile Include="SearchResults.aspx.designer.cs">
       <DependentUpon>SearchResults.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UpdateAccount.aspx.cs">
+      <DependentUpon>UpdateAccount.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UpdateAccount.aspx.designer.cs">
+      <DependentUpon>UpdateAccount.aspx</DependentUpon>
     </Compile>
     <Compile Include="VidiotsTemplate.Master.cs">
       <DependentUpon>VidiotsTemplate.Master</DependentUpon>
