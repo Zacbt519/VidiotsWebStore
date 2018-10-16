@@ -21,7 +21,7 @@ namespace VidiotsWebStore
                 GetFeaturedProducts();
             }
         }
-
+        
         private void GetFeaturedProducts()
         {
             SqlDataReader dr = default(SqlDataReader);
@@ -35,7 +35,7 @@ namespace VidiotsWebStore
                     conn.Open();
 
                     dr = cmd.ExecuteReader(System.Data.CommandBehavior.CloseConnection);
-
+                    
                     if (dr.HasRows)
                     {
                         rptFeaturedProducts.DataSource = dr;
