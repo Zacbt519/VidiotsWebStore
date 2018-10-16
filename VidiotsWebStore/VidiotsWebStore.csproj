@@ -90,6 +90,7 @@
     <Content Include="ProductsByCategory.aspx" />
     <Content Include="ProductsByType.aspx" />
     <Content Include="SearchResults.aspx" />
+    <Content Include="ShoppingCart.aspx" />
     <Content Include="UpdateAccount.aspx" />
     <Content Include="VidiotsTemplate.Master" />
     <None Include="Web.Debug.config">
@@ -214,6 +215,13 @@
     </Compile>
     <Compile Include="SearchResults.aspx.designer.cs">
       <DependentUpon>SearchResults.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ShoppingCart.aspx.cs">
+      <DependentUpon>ShoppingCart.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ShoppingCart.aspx.designer.cs">
+      <DependentUpon>ShoppingCart.aspx</DependentUpon>
     </Compile>
     <Compile Include="UpdateAccount.aspx.cs">
       <DependentUpon>UpdateAccount.aspx</DependentUpon>
