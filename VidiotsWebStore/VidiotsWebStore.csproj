@@ -75,6 +75,7 @@
     <Content Include="Categories.aspx" />
     <Content Include="admin\CategoryAdmin.aspx" />
     <Content Include="CreateAccount.aspx" />
+    <Content Include="CustomerLogin.aspx" />
     <Content Include="img\Airbender.jpg" />
     <Content Include="img\DareToBeStupid.jpg" />
     <Content Include="img\EvenWorse.jpg" />
@@ -162,6 +163,13 @@
     </Compile>
     <Compile Include="CreateAccount.aspx.designer.cs">
       <DependentUpon>CreateAccount.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerLogin.aspx.cs">
+      <DependentUpon>CustomerLogin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerLogin.aspx.designer.cs">
+      <DependentUpon>CustomerLogin.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
