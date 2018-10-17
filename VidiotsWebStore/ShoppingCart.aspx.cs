@@ -11,7 +11,29 @@ namespace VidiotsWebStore
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                if(Request.Cookies["cartID"] != null)
+                {
+                    string cartID = Request.Cookies["cartID"].Value;
+                    AddToCart(cartID);
+                }
+                else
+                {
+                    string cartID = CreateNewCart();
+                    AddToCart(cartID);
+                }
+            }
+        }
 
+        private string CreateNewCart()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void AddToCart(string cartID)
+        {
+            throw new NotImplementedException();
         }
     }
 }

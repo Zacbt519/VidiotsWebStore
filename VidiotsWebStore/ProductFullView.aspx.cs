@@ -69,7 +69,7 @@ namespace VidiotsWebStore
         protected void btnAddToCart_Click(object sender, EventArgs e)
         {
             string prodId = Request.QueryString["productId"];
-            Response.Cookies["prodId"].Value = prodId;
+            Response.Cookies["productID"].Value = prodId;
             Response.Redirect("~/ShoppingCart.aspx");
 
         }
