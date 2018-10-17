@@ -7,7 +7,6 @@
             <div class="col-8">
                 <h1>Create Account</h1>
                 <br />
-
                 <div class="form-group">
                     <label for="txtFirstName">First Name:</label>
                     <asp:TextBox ID="txtFirstName" runat="server" CssClass="form-control"></asp:TextBox>

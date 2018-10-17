@@ -11,7 +11,7 @@
                     <label for="txtPassword">Password:</label>
                     <asp:TextBox ID="txtPassword" runat="server" CssClass="form-control"></asp:TextBox>
                 </div>
-                <asp:Button ID="btnLogin" runat="server" CssClass="btn btn-primary" />
+                <asp:Button ID="btnLogin" runat="server" CssClass="btn btn-primary" Text="Login" />
             </div>
         </div>
     </div>
