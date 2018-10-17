@@ -74,6 +74,7 @@
     <Content Include="ArchiveCustomer.aspx" />
     <Content Include="Categories.aspx" />
     <Content Include="admin\CategoryAdmin.aspx" />
+    <Content Include="Confirmation.aspx" />
     <Content Include="CreateAccount.aspx" />
     <Content Include="CustomerLogin.aspx" />
     <Content Include="img\Airbender.jpg" />
@@ -157,6 +158,13 @@
     </Compile>
     <Compile Include="admin\CategoryAdmin.aspx.designer.cs">
       <DependentUpon>CategoryAdmin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Confirmation.aspx.cs">
+      <DependentUpon>Confirmation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Confirmation.aspx.designer.cs">
+      <DependentUpon>Confirmation.aspx</DependentUpon>
     </Compile>
     <Compile Include="CreateAccount.aspx.cs">
       <DependentUpon>CreateAccount.aspx</DependentUpon>

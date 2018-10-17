@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Net.Mail;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -15,7 +16,7 @@ namespace VidiotsWebStore
         VidiotsTemplate master;
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            master = (VidiotsTemplate)this.Master;
         }
 
         protected void btnSubmit_Click(object sender, EventArgs e)
@@ -59,7 +60,7 @@ namespace VidiotsWebStore
                     cmd.Parameters.AddWithValue("@LastName", lastName);
                     cmd.Parameters.AddWithValue("@UserName", userName);
                     cmd.Parameters.AddWithValue("@UserPassword", userPassword);
-                    cmd.Parameters.AddWithValue("@DateOfBirth", dateOfBirth);
+                    cmd.Parameters.AddWithValue("@DateOfBirth", Convert.ToDateTime(dateOfBirth));
                     cmd.Parameters.AddWithValue("@Street", street);
                     cmd.Parameters.AddWithValue("@City", city);
                     cmd.Parameters.AddWithValue("@PostalCode", postalCode);
@@ -67,14 +68,44 @@ namespace VidiotsWebStore
                     cmd.Parameters.AddWithValue("@Country", country);
                     cmd.Parameters.AddWithValue("@PhoneNumber", phoneNumber);
                     cmd.Parameters.AddWithValue("@EmailAddress", email);
+                    SqlParameter output = new SqlParameter("@CustomerID", System.Data.SqlDbType.Int);
+                    output.Direction = System.Data.ParameterDirection.Output;
+                    cmd.Parameters.Add(output);
                     conn.Open();
                     cmd.ExecuteNonQuery();
+                    SendConfirmationEmail(email, int.Parse(output.Value.ToString()));
                 }
             }
             catch (Exception ex)
             {
+                master.masterMessage = ex.Message;
+            }
 
+            finally
+            {
+                
             }
         } 
-}
+
+        private void SendConfirmationEmail(string email, int accountID)
+        {
+            try
+            {
+                string msg = "<p>Your Account has been created, Click the link to confirm your account <a href='Confirmation.aspx?accountID=" + accountID + "'>Confirmation Link</a></p>";
+                MailMessage mail = new MailMessage();
+                mail.To.Add(email);
+                mail.From = new MailAddress("noreply@vidiots.com");
+                mail.Subject = "Account Confirmation";
+                mail.IsBodyHtml = true;
+                mail.Body = msg;
+
+                SmtpClient smtpClient = new SmtpClient("localhost");
+                smtpClient.Send(mail);
+            }
+            catch (Exception ex)
+            {
+                master.masterMessage = ex.Message;
+            }
+        }
+    }
 }
