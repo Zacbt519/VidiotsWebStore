@@ -39,7 +39,7 @@ namespace VidiotsWebStore
             string userName = txtUserName.Text;
             string userPassword = txtPassword.Text;
             string dateOfBirth = txtDOB.Text;
-            string streetAddress = txtAddress.Text;
+            string street = txtAddress.Text;
             string city = txtCity.Text;
             string postalCode = txtPostalCode.Text;
             string province = txtProvince.Text;
@@ -60,7 +60,7 @@ namespace VidiotsWebStore
                     cmd.Parameters.AddWithValue("@UserName", userName);
                     cmd.Parameters.AddWithValue("@UserPassword", userPassword);
                     cmd.Parameters.AddWithValue("@DateOfBirth", dateOfBirth);
-                    cmd.Parameters.AddWithValue("@StreetAddress", streetAddress);
+                    cmd.Parameters.AddWithValue("@Street", street);
                     cmd.Parameters.AddWithValue("@City", city);
                     cmd.Parameters.AddWithValue("@PostalCode", postalCode);
                     cmd.Parameters.AddWithValue("@Province", province);
