@@ -40,11 +40,12 @@
                     <label for="txtConfirmPassword">Confirm Password</label>
                     <asp:TextBox ID="txtConfirmPassword" runat="server" CssClass="form-control" MaxLength="20"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="rfvConfirm" runat="server" ErrorMessage="Confirm Password is a required field" ControlToValidate="txtConfirmPassword">*</asp:RequiredFieldValidator>
+                    <asp:CompareValidator ID="cvConfirmPassword" runat="server" ErrorMessage="Passwords do not match" ControlToValidate="txtConfirmPassword" ControlToCompare="txtPassword">*</asp:CompareValidator>
                 </div>
                 <br />
                 <div class="form-group">
                     <label for="txtDOB">Date of Birth:</label>
-                    <asp:TextBox ID="txtDOB" runat="server" Text="DD/MM/YYYY" CssClass="form-control" TextMode="DateTime"></asp:TextBox>
+                    <asp:TextBox ID="txtDOB" runat="server" Text="MM/DD/YYYY" CssClass="form-control" TextMode="DateTime"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="rfvDOB" runat="server" ErrorMessage="Date of Birth is a required field" ControlToValidate="txtDOB">*</asp:RequiredFieldValidator>
                 </div>
                 <br />

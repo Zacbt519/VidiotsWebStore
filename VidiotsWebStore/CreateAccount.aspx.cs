@@ -91,7 +91,7 @@ namespace VidiotsWebStore
         {
             try
             {
-                string msg = "<p>Your Account has been created, Click the link to confirm your account <a href='Confirmation.aspx?accountID=" + accountID + "'>Confirmation Link</a></p>";
+                string msg = "<p>Your Account has been created, Click the link to confirm your account <a href='Confirmation.aspx?customerID=" + accountID + "'>Confirmation Link</a></p>";
                 MailMessage mail = new MailMessage();
                 mail.To.Add(email);
                 mail.From = new MailAddress("noreply@vidiots.com");
