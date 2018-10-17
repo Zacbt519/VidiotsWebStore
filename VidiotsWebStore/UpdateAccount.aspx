@@ -45,9 +45,8 @@
                 <br />
                 <div class="form-group">
                     <label for="txtDOB">Date of Birth:</label>
-                    <asp:TextBox ID="txtDOB" runat="server" Text="DD/MM/YYYY" CssClass="form-control"></asp:TextBox>
+                    <asp:TextBox ID="txtDOB" runat="server" Text="DD/MM/YYYY" CssClass="form-control" TextMode="DateTime"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="rfvDOB" runat="server" ErrorMessage="Date of Birth is a required field" ControlToValidate="txtDOB">*</asp:RequiredFieldValidator>
-                    <asp:RegularExpressionValidator ID="revDOB" runat="server" ErrorMessage="Date of Birth not in correct format" ValidationExpression="^\d{2}-\d{2}-\d{4}$" ControlToValidate="txtDOB">*</asp:RegularExpressionValidator>
                 </div>
                 <br />
                 <div class="form-group">
