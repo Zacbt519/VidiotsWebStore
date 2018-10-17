@@ -73,7 +73,7 @@ namespace VidiotsWebStore
             }
             catch(Exception ex)
             {
-
+                master.masterMessage = ex.Message;
             }
         }
     }
