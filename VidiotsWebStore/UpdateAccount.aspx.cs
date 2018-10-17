@@ -12,21 +12,23 @@ namespace VidiotsWebStore
     public partial class UpdateAccount : System.Web.UI.Page
     {
         private string strConn = ConfigurationManager.ConnectionStrings["cnn"].ConnectionString;
+        VidiotsTemplate master;
         protected void Page_Load(object sender, EventArgs e)
         {
+            master = (VidiotsTemplate)this.Master;
             if (!IsPostBack)
             {
 
             }
 
-            string accountID = Request.QueryString["accountID"].ToString();
-            if (!string.IsNullOrEmpty(accountID))
+            string customerID = Request.QueryString["customerID"].ToString();
+            if (!string.IsNullOrEmpty(customerID))
             {
-                RetrieveAccount(accountID);
+                RetrieveAccount(customerID);
             }
         }
 
-        protected void RetrieveAccount(string accountID)
+        protected void RetrieveAccount(string customerID)
         {
             SqlDataReader dr = default(SqlDataReader);
             SqlCommand cmd = default(SqlCommand);
@@ -34,8 +36,8 @@ namespace VidiotsWebStore
             {
                 using (SqlConnection conn = new SqlConnection(strConn))
                 {
-                    cmd = new SqlCommand("spGetCustomer", conn);
-                    SqlParameter param = new SqlParameter("@AccountID", int.Parse(accountID));
+                    cmd = new SqlCommand("spGetCustomerDetails", conn);
+                    SqlParameter param = new SqlParameter("@CustomerID", int.Parse(customerID));
                     cmd.Parameters.Add(param);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     conn.Open();
@@ -50,7 +52,14 @@ namespace VidiotsWebStore
                         txtEmail.Text = dr["Email"].ToString();
                         txtFirstName.Text = dr["FirstName"].ToString();
                         txtLastName.Text = dr["LastName"].ToString();
-                        txtMiddleInitial.Text = dr["MiddleInitial"].ToString();
+                        if(dr["MiddleInitial"].ToString() == null)
+                        {
+                            txtMiddleInitial.Text = "";
+                        }
+                        else
+                        {
+                            txtMiddleInitial.Text = dr["MiddleInitial"].ToString();
+                        }
                         txtPassword.Text = dr["UserPassword"].ToString();
                         txtPhoneNumber.Text = dr["PhoneNumber"].ToString();
                         txtPostalCode.Text = dr["PostalCode"].ToString();
@@ -62,6 +71,7 @@ namespace VidiotsWebStore
             }
             catch (Exception ex)
             {
+                master.masterMessage = ex.Message;
             }
             finally
             {
