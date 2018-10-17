@@ -17,7 +17,7 @@
                 <p runat="server" id="productDescription"></p>
                 <br />
                 <h4>Price:</h4><p runat="server" id="price"></p>
-                <button class="btn btn-outline-success">Add to Cart</button>
+                <asp:Button ID="btnAddToCart" runat="server" Text="Add To Cart" CssClass="btn btn-outline-success" OnClick="btnAddToCart_Click" />
             </div>
         </div>
     </div>

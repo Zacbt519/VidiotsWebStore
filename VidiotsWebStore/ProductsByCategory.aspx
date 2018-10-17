@@ -20,7 +20,7 @@
                                 <p><%# Eval("BriefDescription") %></p>
                                 <br />
                                 <p><%# Eval("Price", "{0:c}") %></p>
-                                <a href='ProductFullView.aspx?productId=<%# Eval("ProductID") %>' class="btn btn-outline-success">View Product</a><a href="#" class="btn btn-primary" style="margin-left:1%;">Add to Cart</a>
+                                <a href='ProductFullView.aspx?productId=<%# Eval("ProductID") %>' class="btn btn-outline-success">View Product</a>
                             </li>
                         </ItemTemplate>
                     </asp:Repeater>
