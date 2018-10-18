@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/VidiotsTemplate.Master" AutoEventWireup="true" CodeBehind="ArchiveCustomer.aspx.cs" Inherits="VidiotsWebStore.ArchiveCustomer" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/admin/VidiotsAdminTemplate.Master" AutoEventWireup="true" CodeBehind="ArchiveCustomer.aspx.cs" Inherits="VidiotsWebStore.ArchiveCustomer" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
