@@ -11,8 +11,8 @@ namespace VidiotsWebStore
 {
     public partial class SearchResults : System.Web.UI.Page
     {
-        private string strConn = ConfigurationManager.ConnectionStrings["cnn"].ConnectionString;
         VidiotsTemplate master;
+        private string strConn = ConfigurationManager.ConnectionStrings["cnn"].ConnectionString;
         protected void Page_Load(object sender, EventArgs e)
         {
             master = (VidiotsTemplate)this.Master;

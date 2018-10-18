@@ -65,5 +65,13 @@ namespace VidiotsWebStore
                 dr.Close();
             }
         }
+
+        protected void btnAddToCart_Click(object sender, EventArgs e)
+        {
+            string prodId = Request.QueryString["productId"];
+            Response.Cookies["productID"].Value = prodId;
+            Response.Redirect("~/ShoppingCart.aspx");
+
+        }
     }
 }

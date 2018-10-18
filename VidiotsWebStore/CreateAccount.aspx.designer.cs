@@ -112,6 +112,15 @@ namespace VidiotsWebStore {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvConfirm;
         
         /// <summary>
+        /// cvConfirmPassword control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator cvConfirmPassword;
+        
+        /// <summary>
         /// txtDOB control.
         /// </summary>
         /// <remarks>
@@ -202,15 +211,6 @@ namespace VidiotsWebStore {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvPostalCode;
         
         /// <summary>
-        /// revPostal control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RegularExpressionValidator revPostal;
-        
-        /// <summary>
         /// txtCountry control.
         /// </summary>
         /// <remarks>
@@ -274,13 +274,13 @@ namespace VidiotsWebStore {
         protected global::System.Web.UI.WebControls.RegularExpressionValidator revEmail;
         
         /// <summary>
-        /// btnUpdate control.
+        /// btnSubmit control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnUpdate;
+        protected global::System.Web.UI.WebControls.Button btnSubmit;
         
         /// <summary>
         /// btnReset control.
