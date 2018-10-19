@@ -7,6 +7,8 @@ using System.Net.Mail;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Data.SqlClient;
+using System.Configuration;
 
 namespace VidiotsWebStore
 {
@@ -51,7 +53,7 @@ namespace VidiotsWebStore
             SqlCommand cmd = default(SqlCommand);
             try
             {
-                using (SqlConnection conn = new SqlConnection(strConn))
+                using(SqlConnection conn = new SqlConnection(strConn))
                 {
                     cmd = new SqlCommand("spCreateAccount", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
@@ -106,6 +108,7 @@ namespace VidiotsWebStore
             {
                 master.masterMessage = ex.Message;
             }
+          
         }
     }
 }
