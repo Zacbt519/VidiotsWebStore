@@ -13,13 +13,13 @@ namespace VidiotsWebStore {
     public partial class ShoppingCart {
         
         /// <summary>
-        /// Repeater1 control.
+        /// rptCart control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater Repeater1;
+        protected global::System.Web.UI.WebControls.Repeater rptCart;
         
         /// <summary>
         /// txtTotal control.
@@ -38,5 +38,14 @@ namespace VidiotsWebStore {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnCheckout;
+        
+        /// <summary>
+        /// btnUpdateCart control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnUpdateCart;
     }
 }

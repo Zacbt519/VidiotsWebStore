@@ -70,6 +70,7 @@ namespace VidiotsWebStore
         {
             string prodId = Request.QueryString["productId"];
             Response.Cookies["productID"].Value = prodId;
+            Response.Cookies["productID"].Expires = DateTime.Now.AddHours(1);
             Response.Redirect("~/ShoppingCart.aspx");
 
         }
