@@ -31,12 +31,21 @@ namespace VidiotsWebStore {
         protected global::System.Web.UI.WebControls.Button btnSearch;
         
         /// <summary>
-        /// Repeater1 control.
+        /// sqlGRV control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater Repeater1;
+        protected global::System.Web.UI.WebControls.SqlDataSource sqlGRV;
+        
+        /// <summary>
+        /// grvCustomers control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView grvCustomers;
     }
 }
