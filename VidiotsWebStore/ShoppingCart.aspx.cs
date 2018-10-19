@@ -51,12 +51,10 @@ namespace VidiotsWebStore
             try
             {
                 SqlDataReader dr = default(SqlDataReader);
-                string prodId = Request.Cookies["productID"].Value;
                 using (SqlConnection conn = new SqlConnection(strConn))
                 {
                     SqlCommand cmd = new SqlCommand("spGetCartItems", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    cmd.Parameters.Add(new SqlParameter("@ProductID", int.Parse(prodId)));
                     cmd.Parameters.Add(new SqlParameter("@CartID", int.Parse(cartID)));
                     conn.Open();
 
