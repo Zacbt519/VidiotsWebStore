@@ -22,13 +22,13 @@ namespace VidiotsWebStore {
         protected global::System.Web.UI.WebControls.Repeater rptCart;
         
         /// <summary>
-        /// txtTotal control.
+        /// lblSubtotal control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtTotal;
+        protected global::System.Web.UI.WebControls.Label lblSubtotal;
         
         /// <summary>
         /// btnCheckout control.

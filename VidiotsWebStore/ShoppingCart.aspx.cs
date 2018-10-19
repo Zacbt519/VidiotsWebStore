@@ -28,6 +28,8 @@ namespace VidiotsWebStore
                 {
                     string cartID = CreateNewCart();
                     AddToCart(cartID);
+                    Response.Cookies["cartID"].Value = cartID;
+                    Response.Cookies["cartID"].Expires = DateTime.Now.AddHours(1);
                     DisplayCartItem(cartID);
                 }
             }

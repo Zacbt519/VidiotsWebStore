@@ -23,8 +23,7 @@
                         </ItemTemplate>
                     </asp:Repeater>
                 </ul>
-                <label></label>
-                <asp:TextBox ID="txtTotal" runat="server" CssClass="form-control"></asp:TextBox>
+                <asp:Label ID="lblSubtotal" runat="server" Text="Subtotal"></asp:Label>
                 <br /><br />
 
                 <div class="form-inline">
