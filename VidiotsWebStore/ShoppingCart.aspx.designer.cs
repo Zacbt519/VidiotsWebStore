@@ -22,13 +22,13 @@ namespace VidiotsWebStore {
         protected global::System.Web.UI.WebControls.GridView grvCart;
         
         /// <summary>
-        /// lblSubtotal control.
+        /// lblOrderSubtotal control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblSubtotal;
+        protected global::System.Web.UI.WebControls.Label lblOrderSubtotal;
         
         /// <summary>
         /// btnCheckout control.

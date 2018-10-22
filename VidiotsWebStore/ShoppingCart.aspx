@@ -17,7 +17,12 @@
                                 <asp:TextBox ID="Quantity" runat="server" Text='<%# Eval("Quantity") %>'></asp:TextBox>
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:BoundField DataField="Price" HeaderText="Price" />
+                        <asp:BoundField DataField="Price" HeaderText="Price" DataFormatString="{0:c}" />
+                        <asp:TemplateField HeaderText="Item Subtotal">
+                            <ItemTemplate>
+                                <asp:Label ID="lblItemSubtotal" runat="server" Text='<%# Eval("ItemSubtotal") %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
                         <asp:TemplateField HeaderText="Remove From Cart">
                             <ItemTemplate>
                                 <asp:CheckBox ID="Remove" runat="server" />
@@ -26,7 +31,7 @@
                     </Columns>
                     
                 </asp:GridView>
-                <asp:Label ID="lblSubtotal" runat="server" Text="Subtotal"></asp:Label>
+                <asp:Label ID="lblOrderSubtotal" runat="server" Text="Subtotal"></asp:Label>
                 <br /><br />
 
                 <div class="form-inline">

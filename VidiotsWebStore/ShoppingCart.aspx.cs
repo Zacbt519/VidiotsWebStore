@@ -64,6 +64,7 @@ namespace VidiotsWebStore
                     {
                         grvCart.DataSource = dr;
                         grvCart.DataBind();
+                        CalculateSubTotal();
                     }
                 }
             }
@@ -72,6 +73,28 @@ namespace VidiotsWebStore
 
             }
             
+        }
+
+        private void CalculateSubTotal()
+        {
+            double orderSubtotal = 0;
+            foreach(GridViewRow row in grvCart.Rows)
+            {
+                Label lbl = (Label)row.FindControl("lblItemSubtotal");
+
+                if (lbl.Text.Contains("$"))
+                {
+                    lbl.Text.Replace('$', ' ');
+                    lbl.Text.Trim();
+                    orderSubtotal += int.Parse(lbl.Text);
+                }
+                else
+                {
+                    orderSubtotal += int.Parse(lbl.Text);
+                }
+            }
+
+            lblOrderSubtotal.Text = "Order Subtotal: " + orderSubtotal;
         }
 
         private string CreateNewCart()
