@@ -19,26 +19,19 @@
         </div>
         <div class="row">
             <div class="col-8">
-                <ul class="list-group">
-                    <asp:SqlDataSource ID="sqlGRV" runat="server" ConnectionString="<%$ ConnectionStrings:cnn %>" SelectCommand="spCustomerSearch" SelectCommandType="StoredProcedure" UpdateCommand="spArchiveCustomer" UpdateCommandType="StoredProcedure">
-                        <SelectParameters>
-                            <asp:ControlParameter ControlID="txtSearch" DefaultValue="" Name="Term" PropertyName="Text" Type="String" />
-                        </SelectParameters>
-                        <UpdateParameters>
-                            <asp:Parameter Name="CustomerID" Type="Int16" />
-                        </UpdateParameters>
-                    </asp:SqlDataSource>
-                    
-                </ul>
             </div>
         </div>
     </div>
-    <asp:GridView ID="grvCustomers" runat="server" AutoGenerateColumns="False" DataKeyNames="CustomerID" DataSourceID="sqlGRV">
+    <asp:GridView ID="grvCustomers" runat="server" AutoGenerateColumns="False">
         <Columns>
-            <asp:CommandField EditText="Archive" ShowEditButton="True" UpdateText="Confirm" />
-            <asp:BoundField DataField="CustomerName" HeaderText="CustomerName" ReadOnly="True" SortExpression="CustomerName" />
-            <asp:CheckBoxField DataField="IsArchived" HeaderText="IsArchived" SortExpression="IsArchived" />
-            <asp:BoundField DataField="CustomerID" HeaderText="CustomerID" InsertVisible="False" ReadOnly="True" SortExpression="CustomerID" />
+            <asp:BoundField DataField="CustomerID" HeaderText="CustomerID" />
+            <asp:BoundField DataField="CustomerName" HeaderText="Customer Name" />
+            <asp:TemplateField HeaderText="IsArchived">
+                <ItemTemplate>
+                    <asp:CheckBox ID="chkArchived" runat="server" Checked='<%# Eval("IsArchived") %>' />
+                </ItemTemplate>
+            </asp:TemplateField>
         </Columns>
     </asp:GridView>
+    <asp:Button ID="btnArchive" runat="server" OnClick="btnArchive_Click" Text="Archive Customers" />
 </asp:Content>
