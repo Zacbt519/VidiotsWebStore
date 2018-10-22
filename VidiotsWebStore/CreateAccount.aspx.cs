@@ -93,7 +93,7 @@ namespace VidiotsWebStore
 
             finally
             {
-                
+                master.masterMessage = "Account Created!";   
             }
         } 
 
