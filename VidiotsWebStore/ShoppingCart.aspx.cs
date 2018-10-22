@@ -62,8 +62,8 @@ namespace VidiotsWebStore
 
                     if (dr.HasRows)
                     {
-                        rptCart.DataSource = dr;
-                        rptCart.DataBind();
+                        grvCart.DataSource = dr;
+                        grvCart.DataBind();
                     }
                 }
             }
@@ -123,6 +123,36 @@ namespace VidiotsWebStore
         protected void btnCheckout_Click(object sender, EventArgs e)
         {
             Response.Redirect("~/CustomerLogin.aspx?fromCheckOut=1");
+        }
+
+        protected void btnUpdateCart_Click(object sender, EventArgs e)
+        {
+            foreach(GridViewRow row in grvCart.Rows)
+            {
+                CheckBox chk = (CheckBox)row.FindControl("Remove");
+
+                if(chk.Checked == true)
+                {
+
+                }
+            }
+
+            foreach(GridViewRow row in grvCart.Rows)
+            {
+                TextBox txt = (TextBox)row.FindControl("Quantity");
+
+                if(int.TryParse(txt.Text, out int quantity))
+                {
+                    if(quantity == 0)
+                    {
+
+                    }
+                    else
+                    {
+
+                    }
+                }
+            }
         }
     }
 }
