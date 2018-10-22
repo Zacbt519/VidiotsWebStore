@@ -5,7 +5,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-8">
-                <h1>Create Account</h1>
+                <h1>Update Account</h1>
                 <br />
                 <div class="form-group">
                     <label for="txtFirstName">First Name:</label>
@@ -44,7 +44,7 @@
                 <br />
                 <div class="form-group">
                     <label for="txtDOB">Date of Birth:</label>
-                    <asp:TextBox ID="txtDOB" runat="server" Text="DD/MM/YYYY" CssClass="form-control" TextMode="DateTime"></asp:TextBox>
+                    <asp:TextBox ID="txtDOB" runat="server" Text="DD/MM/YYYY"  TextMode="Date"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="rfvDOB" runat="server" ErrorMessage="Date of Birth is a required field" ControlToValidate="txtDOB">*</asp:RequiredFieldValidator>
                 </div>
                 <br />
@@ -70,7 +70,7 @@
                     <label for="txtPostalCode">Zip/Postal Code:</label>
                     <asp:TextBox ID="txtPostalCode" runat="server" CssClass="form-control"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="rfvPostalCode" runat="server" ErrorMessage="Zip/Postal code is a required field" ControlToValidate="txtPostalCode">*</asp:RequiredFieldValidator>
-                    <asp:RegularExpressionValidator ID="revPostal" runat="server" ErrorMessage="Zip/Postal code not in correct format" ControlToValidate="txtPostalCode">*</asp:RegularExpressionValidator>
+                    <asp:RegularExpressionValidator ID="revPostal" runat="server" ErrorMessage="Zip/Postal code not in correct format" ControlToValidate="txtPostalCode" ValidationExpression="[ABCEGHJKLMNPRSTVXY][0-9][ABCEGHJKLMNPRSTVWXYZ][0-9][ABCEGHJKLMNPRSTVWXYZ][0-9]">*</asp:RegularExpressionValidator>
                 </div>
                 <br />
                 <div class="form-group">
@@ -90,11 +90,11 @@
                     <label for="txtEmail">Email Address:</label>
                     <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="rfvEmail" runat="server" ErrorMessage="Email is a required field" ControlToValidate="txtEmail">*</asp:RequiredFieldValidator>
-                    <asp:RegularExpressionValidator ID="revEmail" runat="server" ErrorMessage="Email not formatted correctly" ControlToValidate="txtEmail">*</asp:RegularExpressionValidator>
+                    <asp:RegularExpressionValidator ID="revEmail" runat="server" ErrorMessage="Email not formatted correctly" ControlToValidate="txtEmail" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*">*</asp:RegularExpressionValidator>
                 </div>
                 <br /><br />
                 <div class="form-inline">
-                    <asp:Button ID="btnUpdate" runat="server" Text="Update Account" CssClass="btn btn-outline-success" OnClick="btnSubmit_Click" /><button type="reset" class="btn btn-outline-warning" runat="server" id="btnReset" style="margin-left: 1%;">Clear Form</button>
+                    <asp:Button ID="btnUpdate" runat="server" Text="Update Account" CssClass="btn btn-outline-success" OnClick="btnSubmit_Click"/><button type="reset" class="btn btn-outline-warning" runat="server" id="btnReset" style="margin-left: 1%;">Clear Form</button>
                 </div>
             </div>
         </div>

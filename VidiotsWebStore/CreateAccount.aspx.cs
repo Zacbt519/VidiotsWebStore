@@ -23,7 +23,15 @@ namespace VidiotsWebStore
 
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
-            InsertAccount();
+            if (ValidateAge() == true)
+            {
+                InsertAccount();
+                master.masterMessage = "";
+            }
+            else
+            {
+                master.masterMessage = "Date of Birth is invalid. Must be 19 or older.";
+            }
         }
 
         private void InsertAccount()
@@ -85,7 +93,7 @@ namespace VidiotsWebStore
 
             finally
             {
-                
+                master.masterMessage = "Account Created!";   
             }
         } 
 
@@ -109,6 +117,20 @@ namespace VidiotsWebStore
                 master.masterMessage = ex.Message;
             }
           
+        }
+
+        private bool ValidateAge()
+        {
+            string yearStr = txtDOB.Text.Substring(0, 4);
+            int year = int.Parse(yearStr);
+            if (year > DateTime.Now.Year - 19)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
     }
 }
