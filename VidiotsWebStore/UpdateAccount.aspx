@@ -44,7 +44,7 @@
                 <br />
                 <div class="form-group">
                     <label for="txtDOB">Date of Birth:</label>
-                    <asp:TextBox ID="txtDOB" runat="server" Text="DD/MM/YYYY" CssClass="form-control" TextMode="DateTime"></asp:TextBox>
+                    <asp:TextBox ID="txtDOB" runat="server" Text="DD/MM/YYYY"  TextMode="Date"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="rfvDOB" runat="server" ErrorMessage="Date of Birth is a required field" ControlToValidate="txtDOB">*</asp:RequiredFieldValidator>
                 </div>
                 <br />
