@@ -100,7 +100,7 @@ namespace VidiotsWebStore
                 }
             }
 
-            lblOrderSubtotal.Text = "Order Subtotal: " + orderSubtotal;
+            lblOrderSubtotal.Text += String.Format("{0:c}", orderSubtotal);
             CalculateShipping(orderSubtotal);
             CalculateOrderTotal(orderSubtotal, CalculateShipping(orderSubtotal));
         }
@@ -128,8 +128,9 @@ namespace VidiotsWebStore
         {
             double taxAmount = (orderSubtotal * 1.15) - orderSubtotal;
             lblShippingCost.Text += String.Format("{0:c}", shipping);
-            lblTax.Text += taxAmount.ToString();
-            lblOrderTotal.Text += (orderSubtotal + shipping + taxAmount); 
+            lblTax.Text += String.Format("{0:c}", taxAmount);
+            double total = (orderSubtotal + shipping + taxAmount);
+            lblOrderTotal.Text += String.Format("{0:c}", total);
 
         }
 
@@ -193,6 +194,10 @@ namespace VidiotsWebStore
                     cmd.Connection.Open();
 
                     cmd.ExecuteNonQuery();
+                    lblOrderSubtotal.Text = "Order Subtotal:";
+                    lblOrderTotal.Text = "Order Total:";
+                    lblShippingCost.Text = "Shipping Cost:";
+                    lblTax.Text = "Tax:";
                     DisplayCartItem(cartID);
                 }
             }
@@ -209,9 +214,10 @@ namespace VidiotsWebStore
 
         protected void btnUpdateCart_Click(object sender, EventArgs e)
         {
-            foreach(GridViewRow row in grvCart.Rows)
+            int i = 0;
+            foreach (GridViewRow row in grvCart.Rows)
             {
-                int i = 0;
+                
                 CheckBox chk = (CheckBox)row.FindControl("Remove");
 
                 if(chk.Checked == true)
@@ -225,21 +231,27 @@ namespace VidiotsWebStore
                 i++;
             }
 
-            foreach(GridViewRow row in grvCart.Rows)
+            int x = 0;
+            foreach (GridViewRow row in grvCart.Rows)
             {
+                
                 TextBox txt = (TextBox)row.FindControl("Quantity");
 
                 if(int.TryParse(txt.Text, out int quantity))
                 {
                     if(quantity == 0)
                     {
+                        string prodId = grvCart.Rows[x].Cells[0].Text;
+                        string cartID = Request.Cookies["cartID"].Value;
 
+                        DeleteFromCart(cartID, prodId);
                     }
                     else
                     {
 
                     }
                 }
+                i++;
             }
         }
     }
