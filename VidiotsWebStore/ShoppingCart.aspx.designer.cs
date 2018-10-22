@@ -31,6 +31,33 @@ namespace VidiotsWebStore {
         protected global::System.Web.UI.WebControls.Label lblOrderSubtotal;
         
         /// <summary>
+        /// lblShippingCost control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblShippingCost;
+        
+        /// <summary>
+        /// lblTax control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTax;
+        
+        /// <summary>
+        /// lblOrderTotal control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblOrderTotal;
+        
+        /// <summary>
         /// btnCheckout control.
         /// </summary>
         /// <remarks>

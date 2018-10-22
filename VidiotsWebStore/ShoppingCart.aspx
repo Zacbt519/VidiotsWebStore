@@ -31,7 +31,14 @@
                     </Columns>
                     
                 </asp:GridView>
-                <asp:Label ID="lblOrderSubtotal" runat="server" Text="Subtotal"></asp:Label>
+                <br />
+                <asp:Label ID="lblOrderSubtotal" runat="server" Text="Subtotal:"></asp:Label>
+                <br />
+                <asp:Label ID="lblShippingCost" runat="server" Text="Shipping Cost:"></asp:Label>
+                <br />
+                <asp:Label ID="lblTax" runat="server" Text="Tax:"></asp:Label>
+                <br />
+                <asp:Label ID="lblOrderTotal" runat="server" Text="Order Total:"></asp:Label>
                 <br /><br />
 
                 <div class="form-inline">
