@@ -177,6 +177,10 @@ namespace VidiotsWebStore
             {
                 master.masterMessage = ex.Message;
             }
+            finally
+            {
+                master.masterMessage = "Item added to cart";
+            }
             
         }
 
@@ -204,6 +208,10 @@ namespace VidiotsWebStore
             catch (Exception ex)
             {
                 master.masterMessage = ex.Message;
+            }
+            finally
+            {
+                master.masterMessage = "Item deleted from cart";
             }
         }
 
@@ -248,10 +256,46 @@ namespace VidiotsWebStore
                     }
                     else
                     {
+                        string prodId = grvCart.Rows[x].Cells[0].Text;
+                        string cartID = Request.Cookies["cartID"].Value;
 
+                        UpdateQuantity(cartID, prodId, quantity);
                     }
                 }
                 i++;
+            }
+        }
+
+        private void UpdateQuantity(string cartID, string prodId, int quantity)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(strConn))
+                {
+                    SqlCommand cmd = new SqlCommand("spUpdateQuantity", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.Add(new SqlParameter("@CartID", int.Parse(cartID)));
+                    cmd.Parameters.Add(new SqlParameter("@ProductID", int.Parse(prodId)));
+                    cmd.Parameters.Add(new SqlParameter("@Quantity", quantity));
+
+                    cmd.Connection.Open();
+
+                    cmd.ExecuteNonQuery();
+                    lblOrderSubtotal.Text = "Order Subtotal: ";
+                    lblOrderTotal.Text = "Order Total: ";
+                    lblShippingCost.Text = "Shipping Cost: ";
+                    lblTax.Text = "Tax: ";
+                    DisplayCartItem(cartID);
+
+                }
+            }
+            catch (Exception ex)
+            {
+                master.masterMessage = ex.Message;
+            }
+            finally
+            {
+                master.masterMessage = "Item Quantity Updated";
             }
         }
     }
