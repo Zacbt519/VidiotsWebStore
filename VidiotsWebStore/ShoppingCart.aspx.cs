@@ -64,6 +64,13 @@ namespace VidiotsWebStore
                     {
                         grvCart.DataSource = dr;
                         grvCart.DataBind();
+                        CalculateSubTotal();
+                    }
+                    else
+                    {
+                        grvCart.DataSource = null;
+                        grvCart.DataBind();
+                       
                     }
                 }
             }
@@ -72,6 +79,59 @@ namespace VidiotsWebStore
 
             }
             
+        }
+
+        private void CalculateSubTotal()
+        {
+            double orderSubtotal = 0;
+            foreach(GridViewRow row in grvCart.Rows)
+            {
+                Label lbl = (Label)row.FindControl("lblItemSubtotal");
+
+                if (lbl.Text.Contains("$"))
+                {
+                    lbl.Text.Replace('$', ' ');
+                    lbl.Text.Trim();
+                    orderSubtotal += double.Parse(lbl.Text);
+                }
+                else
+                {
+                    orderSubtotal += double.Parse(lbl.Text);
+                }
+            }
+
+            lblOrderSubtotal.Text += String.Format("{0:c}", orderSubtotal);
+            CalculateShipping(orderSubtotal);
+            CalculateOrderTotal(orderSubtotal, CalculateShipping(orderSubtotal));
+        }
+
+        private double CalculateShipping(double orderSubtotal)
+        {
+            double shippingCost = 0;
+            if(orderSubtotal <= 35.00)
+            {
+                shippingCost = 7.00;
+            }
+            else if(orderSubtotal > 35.00 && orderSubtotal <= 75.00)
+            {
+                shippingCost = 12.00;
+            }
+            else
+            {
+                shippingCost = 0.00;
+            }
+
+            return shippingCost;
+        }
+
+        private void CalculateOrderTotal(double orderSubtotal, double shipping)
+        {
+            double taxAmount = (orderSubtotal * 1.15) - orderSubtotal;
+            lblShippingCost.Text += String.Format("{0:c}", shipping);
+            lblTax.Text += String.Format("{0:c}", taxAmount);
+            double total = (orderSubtotal + shipping + taxAmount);
+            lblOrderTotal.Text += String.Format("{0:c}", total);
+
         }
 
         private string CreateNewCart()
@@ -117,7 +177,42 @@ namespace VidiotsWebStore
             {
                 master.masterMessage = ex.Message;
             }
+            finally
+            {
+                master.masterMessage = "Item added to cart";
+            }
             
+        }
+
+        private void DeleteFromCart(string cartID, string prodID)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(strConn))
+                {
+                    SqlCommand cmd = new SqlCommand("spRemoveFromCart", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.Add(new SqlParameter("@CartID", int.Parse(cartID)));
+                    cmd.Parameters.Add(new SqlParameter("@ProductID", int.Parse(prodID)));
+
+                    cmd.Connection.Open();
+
+                    cmd.ExecuteNonQuery();
+                    lblOrderSubtotal.Text = "Order Subtotal:";
+                    lblOrderTotal.Text = "Order Total:";
+                    lblShippingCost.Text = "Shipping Cost:";
+                    lblTax.Text = "Tax:";
+                    DisplayCartItem(cartID);
+                }
+            }
+            catch (Exception ex)
+            {
+                master.masterMessage = ex.Message;
+            }
+            finally
+            {
+                master.masterMessage = "Item deleted from cart";
+            }
         }
 
         protected void btnCheckout_Click(object sender, EventArgs e)
@@ -127,31 +222,80 @@ namespace VidiotsWebStore
 
         protected void btnUpdateCart_Click(object sender, EventArgs e)
         {
-            foreach(GridViewRow row in grvCart.Rows)
+            int i = 0;
+            foreach (GridViewRow row in grvCart.Rows)
             {
+                
                 CheckBox chk = (CheckBox)row.FindControl("Remove");
 
                 if(chk.Checked == true)
                 {
+                    string prodId = grvCart.Rows[i].Cells[0].Text;
+                    string cartID = Request.Cookies["cartID"].Value;
 
+                    DeleteFromCart(cartID, prodId);
                 }
+
+                i++;
             }
 
-            foreach(GridViewRow row in grvCart.Rows)
+            int x = 0;
+            foreach (GridViewRow row in grvCart.Rows)
             {
+                
                 TextBox txt = (TextBox)row.FindControl("Quantity");
 
                 if(int.TryParse(txt.Text, out int quantity))
                 {
                     if(quantity == 0)
                     {
+                        string prodId = grvCart.Rows[x].Cells[0].Text;
+                        string cartID = Request.Cookies["cartID"].Value;
 
+                        DeleteFromCart(cartID, prodId);
                     }
                     else
                     {
+                        string prodId = grvCart.Rows[x].Cells[0].Text;
+                        string cartID = Request.Cookies["cartID"].Value;
 
+                        UpdateQuantity(cartID, prodId, quantity);
                     }
                 }
+                i++;
+            }
+        }
+
+        private void UpdateQuantity(string cartID, string prodId, int quantity)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(strConn))
+                {
+                    SqlCommand cmd = new SqlCommand("spUpdateQuantity", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.Add(new SqlParameter("@CartID", int.Parse(cartID)));
+                    cmd.Parameters.Add(new SqlParameter("@ProductID", int.Parse(prodId)));
+                    cmd.Parameters.Add(new SqlParameter("@Quantity", quantity));
+
+                    cmd.Connection.Open();
+
+                    cmd.ExecuteNonQuery();
+                    lblOrderSubtotal.Text = "Order Subtotal: ";
+                    lblOrderTotal.Text = "Order Total: ";
+                    lblShippingCost.Text = "Shipping Cost: ";
+                    lblTax.Text = "Tax: ";
+                    DisplayCartItem(cartID);
+
+                }
+            }
+            catch (Exception ex)
+            {
+                master.masterMessage = ex.Message;
+            }
+            finally
+            {
+                master.masterMessage = "Item Quantity Updated";
             }
         }
     }

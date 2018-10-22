@@ -12,12 +12,17 @@
                     <Columns>
                         <asp:BoundField DataField="ProductID" HeaderText="Product ID" ReadOnly="True" />
                         <asp:BoundField DataField="ProductName" HeaderText="Product Name" ReadOnly="True" />
-                        <asp:TemplateField HeaderText="Quantiy">
+                        <asp:TemplateField HeaderText="Quantity">
                             <ItemTemplate>
-                                <asp:TextBox ID="Quantity" runat="server" Text='<%# Eval("Quantity") %>'></asp:TextBox>
+                                <asp:TextBox ID="Quantity" runat="server" TextMode="Number" Text='<%# Eval("Quantity") %>'></asp:TextBox>
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:BoundField DataField="Price" HeaderText="Price" />
+                        <asp:BoundField DataField="Price" HeaderText="Price" DataFormatString="{0:c}" />
+                        <asp:TemplateField HeaderText="Item Subtotal">
+                            <ItemTemplate>
+                                <asp:Label ID="lblItemSubtotal" runat="server" Text='<%# Eval("ItemSubtotal") %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
                         <asp:TemplateField HeaderText="Remove From Cart">
                             <ItemTemplate>
                                 <asp:CheckBox ID="Remove" runat="server" />
@@ -26,7 +31,14 @@
                     </Columns>
                     
                 </asp:GridView>
-                <asp:Label ID="lblSubtotal" runat="server" Text="Subtotal"></asp:Label>
+                <br />
+                <asp:Label ID="lblOrderSubtotal" runat="server" Text="Subtotal: "></asp:Label>
+                <br />
+                <asp:Label ID="lblShippingCost" runat="server" Text="Shipping Cost: "></asp:Label>
+                <br />
+                <asp:Label ID="lblTax" runat="server" Text="Tax: "></asp:Label>
+                <br />
+                <asp:Label ID="lblOrderTotal" runat="server" Text="Order Total: "></asp:Label>
                 <br /><br />
 
                 <div class="form-inline">
