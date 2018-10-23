@@ -21,8 +21,17 @@ namespace VidiotsWebStore
             {
                 if(int.Parse(isFromCheckout) == 1)
                 {
-
+                    LoginToCheckout();
                 }
+            }
+        }
+
+        private void LoginToCheckout()
+        {
+            if(txtUserName.Text == "admin" && txtPassword.Text == "password")
+            {
+                Session["login"] = true;
+                Response.Redirect("~/Order.aspx");
             }
         }
     }
