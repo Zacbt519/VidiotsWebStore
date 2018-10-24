@@ -12,18 +12,18 @@ namespace VidiotsWebStore
         string isFromCheckout;
         protected void Page_Load(object sender, EventArgs e)
         {
-            isFromCheckout = Request.QueryString["fromCheckOut"];
+            //isFromCheckout = Request.QueryString["fromCheckOut"];
         }
 
         protected void btnLogin_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(isFromCheckout))
-            {
-                if(int.Parse(isFromCheckout) == 1)
-                {
+            //if (!string.IsNullOrEmpty(isFromCheckout))
+            //{
+                //if(int.Parse(isFromCheckout) == 1)
+                //{
                     LoginToCheckout();
-                }
-            }
+              //  }
+            //}
         }
 
         private void LoginToCheckout()
@@ -31,6 +31,7 @@ namespace VidiotsWebStore
             if(txtUserName.Text == "admin" && txtPassword.Text == "password")
             {
                 Session["login"] = true;
+                Session["customerID"] = 1; //get customer id from db
                 Response.Redirect("~/Order.aspx");
             }
         }
