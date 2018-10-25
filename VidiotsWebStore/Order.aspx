@@ -13,45 +13,69 @@
                         <p runat="server" id="cityAndProvince"></p>
                         <p runat="server" id="country"></p>
                         <p runat="server" id="postalCode"></p>
+                        <br />
+                        <asp:CheckBox ID="chkShipping" AutoPostBack="true" runat="server" Text="Shipping Address diferent from Billing Address?" OnCheckedChanged="chkShipping_CheckedChanged" />
+                        <br /><br />
+                        <asp:Panel ID="pnlShipping" runat="server" Visible="false">
+                            <h5>Shipping Address:</h5>
+                            <br />
+                            <div class="form-group">
+                                <label>Street Address:</label>
+                                <asp:TextBox ID="txtStreet" runat="server" CssClass="form-control"></asp:TextBox>
+                                <asp:RequiredFieldValidator ID="rfvStreet" runat="server" ErrorMessage="Street Address is required" ControlToValidate="txtStreet">*</asp:RequiredFieldValidator>
+                            </div>
+                            <div class="form-group">
+                                <label>City:</label>
+                                <asp:TextBox ID="txtCity" runat="server" CssClass="form-control"></asp:TextBox>
+                                <asp:RequiredFieldValidator ID="rfvCity" runat="server" ErrorMessage="City is required" ControlToValidate="txtCity">*</asp:RequiredFieldValidator>
+                            </div>
+                            <div class="form-group">
+                                <label>Province</label>
+                                <asp:TextBox ID="txtProvince" runat="server" CssClass="form-control"></asp:TextBox>
+                                <asp:RequiredFieldValidator ID="rfvProvince" runat="server" ErrorMessage="Province is required" ControlToValidate="txtProvince">*</asp:RequiredFieldValidator>
+                            </div>
+                            <div class="form-group">
+                                <label>Country:</label>
+                                <asp:TextBox ID="txtCountry" runat="server" CssClass="form-control"></asp:TextBox>
+                                <asp:RequiredFieldValidator ID="rfvCountry" runat="server" ErrorMessage="Country is required" ControlToValidate="txtCountry">*</asp:RequiredFieldValidator>
+                            </div>
+                            <div class="form-group">
+                                <label>Postal Code:</label>
+                                <asp:TextBox ID="txtPostal" runat="server" CssClass="form-control"></asp:TextBox>
+                                <asp:RequiredFieldValidator ID="rfvPostal" runat="server" ErrorMessage="Postal Code/Zip is required" ControlToValidate="txtPostal">*</asp:RequiredFieldValidator>
+                            </div>
+                        </asp:Panel>
                     </li>
                 </ul>
             </div>
-       </div>
+            <div class="col-6">
+                 <ul class="list-group">
+                    <li class="list-group-item">
+                        <h3>Payment Details</h3>
+                        <br />
+                        <asp:RadioButton ID="rdoCredit" runat="server" GroupName="choice" OnCheckedChanged="rdoCredit_CheckedChanged" AutoPostBack="true"/> Credit Card
+                        <br />
+                        <asp:RadioButton ID="rdoPaypal" runat="server" GroupName="choice" OnCheckedChanged="rdoPaypal_CheckedChanged" AutoPostBack="true" /> Paypal
+                        <br />
+                        <asp:Panel ID="pnlCredit" runat="server" Visible="false">
+                            <label>Credit Card Number:</label>
+                            <asp:TextBox ID="txtCardNum" runat="server" CssClass="form-control"></asp:TextBox>
+                            <br />
+                            <label>Expiration:</label>
+                            <asp:TextBox ID="txtExp" runat="server" CssClass="form-control"></asp:TextBox>
+                            <br />
+                            <label>Security Code:</label>
+                            <asp:TextBox ID="txtCode" runat="server" CssClass="form-control"></asp:TextBox>
+                        </asp:Panel>
+                    </li>
+                </ul>
+            </div>
+       </div>    
         <div class="row">
             <div class="col-6">
                 <br />
-                <asp:CheckBox ID="chkShipping" AutoPostBack="true" runat="server" Text="Shipping Address diferent from Billing Address?" OnCheckedChanged="chkShipping_CheckedChanged" />
+                <asp:Button ID="btnConfirm" runat="server" Text="Confirm Order" CssClass="btn btn-success" />
                 <br />
-                <asp:Panel ID="pnlShipping" runat="server" Visible="false">
-                    <div class="form-group">
-                        <label>Street Address:</label>
-                        <asp:TextBox ID="txtStreet" runat="server" CssClass="form-control"></asp:TextBox>
-                    </div>
-                    <div class="form-group">
-                        <label>City:</label>
-                        <asp:TextBox ID="txtCity" runat="server" CssClass="form-control"></asp:TextBox>
-                    </div>
-                    <div class="form-group">
-                        <label>Province</label>
-                        <asp:TextBox ID="txtProvince" runat="server" CssClass="form-control"></asp:TextBox>
-                    </div>
-                    <div class="form-group">
-                        <label>Country:</label>
-                        <asp:TextBox ID="txtCountry" runat="server" CssClass="form-control"></asp:TextBox>
-                    </div>
-                    
-                </asp:Panel>
-            </div>
-        </div>
-                
-        <div class="row">
-            <div class="col-6">
-                <asp:Button ID="btnConfirm" runat="server" Text="Confirm Address" CssClass="btn btn-success" />
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-6">
-                
             </div>
         </div>
     </div>

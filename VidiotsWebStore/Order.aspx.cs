@@ -66,5 +66,15 @@ namespace VidiotsWebStore
                 pnlShipping.Visible = false;
             }
         }
+
+        protected void rdoPaypal_CheckedChanged(object sender, EventArgs e)
+        {
+            pnlCredit.Visible = false;
+        }
+
+        protected void rdoCredit_CheckedChanged(object sender, EventArgs e)
+        {
+            pnlCredit.Visible = true;
+        }
     }
 }
