@@ -77,7 +77,7 @@
         <div class="row">
             <div class="col-6">
                 <br />
-                <asp:Button ID="btnConfirm" runat="server" Text="Confirm Order" CssClass="btn btn-success" />
+                <asp:Button ID="btnConfirm" runat="server" Text="Confirm Order" CssClass="btn btn-success" OnClick="btnConfirm_Click" />
                 <br />
             </div>
         </div>
