@@ -60,12 +60,15 @@
                         <asp:Panel ID="pnlCredit" runat="server" Visible="false">
                             <label>Credit Card Number:</label>
                             <asp:TextBox ID="txtCardNum" runat="server" CssClass="form-control"></asp:TextBox>
+                            <asp:RequiredFieldValidator ID="rfvCardNum" runat="server" ErrorMessage="Card Number is required" ControlToValidate="txtCardNum">*</asp:RequiredFieldValidator>
                             <br />
                             <label>Expiration:</label>
                             <asp:TextBox ID="txtExp" runat="server" CssClass="form-control"></asp:TextBox>
+                            <asp:RequiredFieldValidator ID="rfvExpiration" runat="server" ErrorMessage="Expiration is required" ControlToValidate="txtExp">*</asp:RequiredFieldValidator>
                             <br />
                             <label>Security Code:</label>
                             <asp:TextBox ID="txtCode" runat="server" CssClass="form-control"></asp:TextBox>
+                            <asp:RequiredFieldValidator ID="rfvCode" runat="server" ErrorMessage="Security Code is required" ControlToValidate="txtCode">*</asp:RequiredFieldValidator>
                         </asp:Panel>
                     </li>
                 </ul>

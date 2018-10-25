@@ -64,17 +64,28 @@ namespace VidiotsWebStore
             else
             {
                 pnlShipping.Visible = false;
+                rfvCity.Enabled = false;
+                rfvCountry.Enabled = false;
+                rfvPostal.Enabled = false;
+                rfvProvince.Enabled = false;
+                rfvStreet.Enabled = false;
             }
         }
 
         protected void rdoPaypal_CheckedChanged(object sender, EventArgs e)
         {
             pnlCredit.Visible = false;
+            rfvCardNum.Enabled = false;
+            rfvCode.Enabled = false;
+            rfvExpiration.Enabled = false;
         }
 
         protected void rdoCredit_CheckedChanged(object sender, EventArgs e)
         {
             pnlCredit.Visible = true;
+            rfvCardNum.Enabled = true;
+            rfvCode.Enabled = true;
+            rfvExpiration.Enabled = true;
         }
     }
 }

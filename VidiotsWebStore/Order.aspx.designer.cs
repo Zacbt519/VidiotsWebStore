@@ -193,6 +193,15 @@ namespace VidiotsWebStore {
         protected global::System.Web.UI.WebControls.TextBox txtCardNum;
         
         /// <summary>
+        /// rfvCardNum control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvCardNum;
+        
+        /// <summary>
         /// txtExp control.
         /// </summary>
         /// <remarks>
@@ -202,6 +211,15 @@ namespace VidiotsWebStore {
         protected global::System.Web.UI.WebControls.TextBox txtExp;
         
         /// <summary>
+        /// rfvExpiration control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvExpiration;
+        
+        /// <summary>
         /// txtCode control.
         /// </summary>
         /// <remarks>
@@ -209,6 +227,15 @@ namespace VidiotsWebStore {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtCode;
+        
+        /// <summary>
+        /// rfvCode control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvCode;
         
         /// <summary>
         /// btnConfirm control.
