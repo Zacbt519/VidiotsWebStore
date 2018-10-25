@@ -134,7 +134,7 @@ namespace VidiotsWebStore
         {
             try
             {
-                SqlDataReader dr = default(SqlDataReader);
+                
                 using (SqlConnection conn = new SqlConnection(strConn))
                 {
                     SqlCommand cmd = new SqlCommand("spCreateOrder", conn);
