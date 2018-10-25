@@ -21,27 +21,27 @@
                             <br />
                             <div class="form-group">
                                 <label>Street Address:</label>
-                                <asp:TextBox ID="txtStreet" runat="server" CssClass="form-control"></asp:TextBox>
+                                <asp:TextBox ID="txtStreet" runat="server" MaxLength="50" CssClass="form-control"></asp:TextBox>
                                 <asp:RequiredFieldValidator ID="rfvStreet" runat="server" ErrorMessage="Street Address is required" ControlToValidate="txtStreet">*</asp:RequiredFieldValidator>
                             </div>
                             <div class="form-group">
                                 <label>City:</label>
-                                <asp:TextBox ID="txtCity" runat="server" CssClass="form-control"></asp:TextBox>
+                                <asp:TextBox ID="txtCity" runat="server" MaxLength="50" CssClass="form-control"></asp:TextBox>
                                 <asp:RequiredFieldValidator ID="rfvCity" runat="server" ErrorMessage="City is required" ControlToValidate="txtCity">*</asp:RequiredFieldValidator>
                             </div>
                             <div class="form-group">
                                 <label>Province</label>
-                                <asp:TextBox ID="txtProvince" runat="server" CssClass="form-control"></asp:TextBox>
+                                <asp:TextBox ID="txtProvince" runat="server" MaxLength="2" CssClass="form-control"></asp:TextBox>
                                 <asp:RequiredFieldValidator ID="rfvProvince" runat="server" ErrorMessage="Province is required" ControlToValidate="txtProvince">*</asp:RequiredFieldValidator>
                             </div>
                             <div class="form-group">
                                 <label>Country:</label>
-                                <asp:TextBox ID="txtCountry" runat="server" CssClass="form-control"></asp:TextBox>
+                                <asp:TextBox ID="txtCountry" runat="server" MaxLength="50" CssClass="form-control"></asp:TextBox>
                                 <asp:RequiredFieldValidator ID="rfvCountry" runat="server" ErrorMessage="Country is required" ControlToValidate="txtCountry">*</asp:RequiredFieldValidator>
                             </div>
                             <div class="form-group">
                                 <label>Postal Code:</label>
-                                <asp:TextBox ID="txtPostal" runat="server" CssClass="form-control"></asp:TextBox>
+                                <asp:TextBox ID="txtPostal" runat="server" MaxLength="6" CssClass="form-control"></asp:TextBox>
                                 <asp:RequiredFieldValidator ID="rfvPostal" runat="server" ErrorMessage="Postal Code/Zip is required" ControlToValidate="txtPostal">*</asp:RequiredFieldValidator>
                             </div>
                         </asp:Panel>

@@ -95,9 +95,13 @@ namespace VidiotsWebStore
             {
                 if(chkShipping.Checked == true)
                 {
-                    CreateShippingAddress();
+                    CreateOrder(CreateShippingAddress());
                 }
-                CreateOrder();
+                else
+                {
+
+                }
+                
                 SendOrderEmail();
             }
             catch(Exception ex)
@@ -126,7 +130,7 @@ namespace VidiotsWebStore
             }
         }
 
-        private void CreateOrder()
+        private void CreateOrder( int addressID)
         {
             try
             {
