@@ -1,4 +1,4 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="VidiotsTemplate.master.cs" Inherits="VidiotsWebStore.VidiotsTemplate" %>
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="VidiotsTemplate.master.cs" Inherits="VidiotsWebStore.VidiotsTemplate"  %>
 
 <!DOCTYPE html>
 
@@ -50,6 +50,9 @@
                             <asp:Label ID="lblMasterMessage" runat="server" Text="" CssClass="errorMessage"></asp:Label>
 
             </div>
+            <br />
+            <asp:ValidationSummary ID="ValidationSummary1" runat="server" />
+            <br />
             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
             </asp:ContentPlaceHolder>
         </div>
