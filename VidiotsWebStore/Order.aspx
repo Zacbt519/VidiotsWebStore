@@ -55,11 +55,11 @@
                         <br />
                         <asp:RadioButton ID="rdoCredit" runat="server" GroupName="choice" OnCheckedChanged="rdoCredit_CheckedChanged" AutoPostBack="true"/> Credit Card
                         <br />
-                        <asp:RadioButton ID="rdoPaypal" runat="server" GroupName="choice" OnCheckedChanged="rdoPaypal_CheckedChanged" AutoPostBack="true" /> Paypal
+                        <asp:RadioButton ID="rdoPaypal" runat="server" GroupName="choice" OnCheckedChanged="rdoPaypal_CheckedChanged" AutoPostBack="true" Checked="true" /> Paypal
                         <br />
                         <asp:Panel ID="pnlCredit" runat="server" Visible="false">
                             <label>Credit Card Number:</label>
-                            <asp:TextBox ID="txtCardNum" runat="server" CssClass="form-control"></asp:TextBox>
+                            <asp:TextBox ID="txtCardNum" runat="server" CssClass="form-control" MaxLength="16"></asp:TextBox>
                             <asp:RequiredFieldValidator ID="rfvCardNum" runat="server" ErrorMessage="Card Number is required" ControlToValidate="txtCardNum">*</asp:RequiredFieldValidator>
                             <br />
                             <label>Expiration:</label>
@@ -67,7 +67,7 @@
                             <asp:RequiredFieldValidator ID="rfvExpiration" runat="server" ErrorMessage="Expiration is required" ControlToValidate="txtExp">*</asp:RequiredFieldValidator>
                             <br />
                             <label>Security Code:</label>
-                            <asp:TextBox ID="txtCode" runat="server" CssClass="form-control"></asp:TextBox>
+                            <asp:TextBox ID="txtCode" runat="server" CssClass="form-control" MaxLength="3"></asp:TextBox>
                             <asp:RequiredFieldValidator ID="rfvCode" runat="server" ErrorMessage="Security Code is required" ControlToValidate="txtCode">*</asp:RequiredFieldValidator>
                         </asp:Panel>
                     </li>

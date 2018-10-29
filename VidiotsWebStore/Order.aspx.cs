@@ -14,6 +14,7 @@ namespace VidiotsWebStore
     {
         private string strConn = ConfigurationManager.ConnectionStrings["cnn"].ConnectionString;
         VidiotsTemplate master;
+        int billingID;
         protected void Page_Load(object sender, EventArgs e)
         {
             master = (VidiotsTemplate)this.Master;
@@ -43,7 +44,10 @@ namespace VidiotsWebStore
                         cityAndProvince.InnerText = dr["City"].ToString() + ", " + dr["Province"].ToString();
                         country.InnerText = dr["Country"].ToString();
                         postalCode.InnerText = dr["PostalCode"].ToString();
+                        billingID = int.Parse(dr["AddressID"].ToString());
                     }
+
+                    
                 }
             }
             catch (Exception ex)
@@ -52,7 +56,7 @@ namespace VidiotsWebStore
             }
             finally
             {
-                master.masterMessage = "Address Retrieved";
+                
             }
         }
 
@@ -93,21 +97,35 @@ namespace VidiotsWebStore
         {
             try
             {
-                if(chkShipping.Checked == true)
+                
+                if (chkShipping.Checked == true)
                 {
-                    CreateOrder(CreateShippingAddress());
+                    CreateOrder(CreateShippingAddress(), GenerateAuthNumber());
+                    SendOrderEmail();
                 }
                 else
                 {
-
+                    CreateOrder(GenerateAuthNumber());
+                    SendOrderEmail();
                 }
                 
-                SendOrderEmail();
             }
             catch(Exception ex)
             {
                 master.masterMessage = ex.Message;
             }
+        }
+
+        private string GenerateAuthNumber()
+        {
+            Guid auth;
+            auth = Guid.NewGuid();
+            string num = auth.ToString();
+            num = num.Replace("-", " ");
+            num = num.Replace(" ", "");
+            string authNumber = num.Substring(0, 10);
+            return authNumber;
+            
         }
 
         private int CreateShippingAddress()
@@ -121,26 +139,44 @@ namespace VidiotsWebStore
                 cmd.Parameters.Add(new SqlParameter("@Province", txtProvince.Text));
                 cmd.Parameters.Add(new SqlParameter("@Country", txtCountry.Text));
                 cmd.Parameters.Add(new SqlParameter("@PostalCode", txtPostal.Text));
+                cmd.Parameters.Add(new SqlParameter("@CustomerID", Session["CustomerID"].ToString()));
                 SqlParameter output = new SqlParameter("@AddressID", System.Data.SqlDbType.Int);
                 output.Direction = System.Data.ParameterDirection.Output;
                 cmd.Parameters.Add(output);
+                cmd.Connection.Open();
 
                 cmd.ExecuteNonQuery();
                 return int.Parse(output.Value.ToString());
             }
         }
 
-        private void CreateOrder( int addressID)
+        private void CreateOrder( int addressID, string auth)
         {
+            string payChoice;
             try
             {
-                
+                if(rdoPaypal.Checked == true)
+                {
+                    payChoice = "PP";
+                }
+                else
+                {
+                    payChoice = "CC";
+                }
                 using (SqlConnection conn = new SqlConnection(strConn))
                 {
                     SqlCommand cmd = new SqlCommand("spCreateOrder", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.Add(new SqlParameter("@CustomerID", int.Parse(Session["CustomerID"].ToString())));
+                    cmd.Parameters.Add(new SqlParameter("@CartID", int.Parse(Request.Cookies["CartID"].Value.ToString())));
+                    cmd.Parameters.Add(new SqlParameter("@PayType", payChoice));
+                    cmd.Parameters.Add(new SqlParameter("@BillingAddress", billingID));
+                    cmd.Parameters.Add(new SqlParameter("@ShippingAddress", addressID));
+                    cmd.Parameters.Add(new SqlParameter("@AuthNumber", auth));
+                    cmd.Connection.Open();
+
+                    cmd.ExecuteNonQuery();
                     
-                    conn.Open();
                    
                 }
             }
@@ -150,16 +186,73 @@ namespace VidiotsWebStore
             }
         }
 
-        private void SendOrderEmail(string customerEmail)
+        private void CreateOrder(string auth)
+        {
+            string payChoice;
+            try
+            {
+                if (rdoPaypal.Checked == true)
+                {
+                    payChoice = "PP";
+                }
+                else
+                {
+                    payChoice = "CC";
+                }
+                using (SqlConnection conn = new SqlConnection(strConn))
+                {
+                    SqlCommand cmd = new SqlCommand("spCreateOrder", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.Add(new SqlParameter("@CustomerID", int.Parse(Session["CustomerID"].ToString())));
+                    cmd.Parameters.Add(new SqlParameter("@CartID", int.Parse(Request.Cookies["CartID"].Value.ToString())));
+                    cmd.Parameters.Add(new SqlParameter("@PayType", payChoice));
+                    cmd.Parameters.Add(new SqlParameter("@BillingAddress", billingID));
+                    cmd.Parameters.Add(new SqlParameter("@ShippingAddress", billingID));
+                    cmd.Parameters.Add(new SqlParameter("@AuthNumber", auth));
+                    cmd.Connection.Open();
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                master.masterMessage = ex.Message;
+            }
+        }
+
+        private void SendOrderEmail()
         {
             MailMessage mail = new MailMessage();
             mail.From = new MailAddress("orders@vidiots.com");
-            mail.To.Add(new MailAddress(customerEmail));
+            mail.To.Add(new MailAddress(GetCustomerEmail()));
             mail.Subject = "Order Confirmation";
             mail.IsBodyHtml = true;
+            mail.Body = "<h1>Your order has been created!</h1>";
 
             SmtpClient smtpClient = new SmtpClient("localhost");
             smtpClient.Send(mail);
+        }
+
+        private string GetCustomerEmail()
+        {
+            string email = "";
+           SqlDataReader dr = default(SqlDataReader);
+           using(SqlConnection conn = new SqlConnection(strConn))
+           {
+                SqlCommand cmd = new SqlCommand("spGetCustomerEmail", conn);
+                cmd.Parameters.Add(new SqlParameter("@CustomerID", Session["CustomerID"]));
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                cmd.Connection.Open();
+                dr = cmd.ExecuteReader(System.Data.CommandBehavior.CloseConnection);
+
+                if (dr.HasRows)
+                {
+                    dr.Read();
+                    email = dr["EmailAddress"].ToString();
+                }
+           }
+
+            return email;
         }
     }
 }
