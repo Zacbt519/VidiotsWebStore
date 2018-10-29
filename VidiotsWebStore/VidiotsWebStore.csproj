@@ -89,6 +89,7 @@
     <Content Include="admin\ManageCategory.aspx" />
     <Content Include="admin\ManageProduct.aspx" />
     <Content Include="Order.aspx" />
+    <Content Include="OrderDetails.aspx" />
     <Content Include="ProductFullView.aspx" />
     <Content Include="ProductsByCategory.aspx" />
     <Content Include="ProductsByType.aspx" />
@@ -210,6 +211,13 @@
     </Compile>
     <Compile Include="Order.aspx.designer.cs">
       <DependentUpon>Order.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="OrderDetails.aspx.cs">
+      <DependentUpon>OrderDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OrderDetails.aspx.designer.cs">
+      <DependentUpon>OrderDetails.aspx</DependentUpon>
     </Compile>
     <Compile Include="ProductFullView.aspx.cs">
       <DependentUpon>ProductFullView.aspx</DependentUpon>
