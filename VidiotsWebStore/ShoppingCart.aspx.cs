@@ -18,32 +18,40 @@ namespace VidiotsWebStore
             master = (VidiotsTemplate)this.Master;
             if (!IsPostBack)
             {
-                if(Request.Cookies["cartID"] != null)
+                string from = Request.QueryString["cart"];
+                if (from == "1")
                 {
-                    string cartID = Request.Cookies["cartID"].Value;
-                    AddToCart(cartID);
-                    DisplayCartItem(cartID);
+                    if (Request.Cookies["cartID"] != null)
+                    {
+                        string cartID = Request.Cookies["cartID"].Value;
+                        DisplayCartItem(cartID);
+                    }
+                    else
+                    {
+                        string cartID = CreateNewCart();
+                        Response.Cookies["cartID"].Value = cartID;
+                        Response.Cookies["cartID"].Expires = DateTime.Now.AddHours(1);
+                        DisplayCartItem(cartID);
+                    }
                 }
                 else
                 {
-                    string cartID = CreateNewCart();
-                    AddToCart(cartID);
-                    Response.Cookies["cartID"].Value = cartID;
-                    Response.Cookies["cartID"].Expires = DateTime.Now.AddHours(1);
-                    DisplayCartItem(cartID);
+                    if (Request.Cookies["cartID"] != null)
+                    {
+                        string cartID = Request.Cookies["cartID"].Value;
+                        AddToCart(cartID);
+                        DisplayCartItem(cartID);
+                    }
+                    else
+                    {
+                        string cartID = CreateNewCart();
+                        AddToCart(cartID);
+                        Response.Cookies["cartID"].Value = cartID;
+                        Response.Cookies["cartID"].Expires = DateTime.Now.AddHours(1);
+                        DisplayCartItem(cartID);
+                    }
                 }
             }
-
-            string prodID = Request.QueryString["ProductId"];
-            if (!string.IsNullOrEmpty(prodID))
-            {
-                RemoveFromCart(prodID);
-            }
-        }
-
-        private void RemoveFromCart(string prodID)
-        {
-            
         }
 
         private void DisplayCartItem(string cartID)
@@ -65,6 +73,7 @@ namespace VidiotsWebStore
                         grvCart.DataSource = dr;
                         grvCart.DataBind();
                         CalculateSubTotal();
+                       
                     }
                     else
                     {
@@ -76,9 +85,8 @@ namespace VidiotsWebStore
             }
             catch(Exception ex)
             {
-
+                master.masterMessage = ex.Message;
             }
-            
         }
 
         private void CalculateSubTotal()
@@ -86,17 +94,14 @@ namespace VidiotsWebStore
             double orderSubtotal = 0;
             foreach(GridViewRow row in grvCart.Rows)
             {
-                Label lbl = (Label)row.FindControl("lblItemSubtotal");
-
-                if (lbl.Text.Contains("$"))
+                if (row.Cells[4].Text.Contains("$"))
                 {
-                    lbl.Text.Replace('$', ' ');
-                    lbl.Text.Trim();
-                    orderSubtotal += double.Parse(lbl.Text);
+                    string itemSub = row.Cells[4].Text.Replace('$', ' ');
+                    orderSubtotal += double.Parse(itemSub);
                 }
                 else
                 {
-                    orderSubtotal += double.Parse(lbl.Text);
+                    orderSubtotal += double.Parse(row.Cells[4].Text);
                 }
             }
 

@@ -18,11 +18,7 @@
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:BoundField DataField="Price" HeaderText="Price" DataFormatString="{0:c}" />
-                        <asp:TemplateField HeaderText="Item Subtotal">
-                            <ItemTemplate>
-                                <asp:Label ID="lblItemSubtotal" runat="server" Text='<%# Eval("ItemSubtotal") %>'></asp:Label>
-                            </ItemTemplate>
-                        </asp:TemplateField>
+                        <asp:BoundField DataField="ItemSubtotal" DataFormatString="{0:c}" HeaderText="Item Subtotal" />
                         <asp:TemplateField HeaderText="Remove From Cart">
                             <ItemTemplate>
                                 <asp:CheckBox ID="Remove" runat="server" />
