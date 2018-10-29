@@ -19,7 +19,7 @@ namespace VidiotsWebStore
             if (!IsPostBack)
             {
                 string orderId = Request.QueryString["orderId"];
-                if (String.IsNullOrEmpty(orderId)
+                if (String.IsNullOrEmpty(orderId))
                 {
                     master.masterMessage = "Invalid Order Number.";
                 }
@@ -43,19 +43,42 @@ namespace VidiotsWebStore
                     conn.Open();
 
                     dr = cmd.ExecuteReader();
-
                     if (dr.HasRows)
                     {
                         grvCart.DataSource = dr;
                         grvCart.DataBind();
                         CalculateSubTotal();
-
+                        GetShippingAddress(orderId);
                     }
-                    else
-                    {
-                        grvCart.DataSource = null;
-                        grvCart.DataBind();
+                }
+            }
+            catch (Exception ex)
+            {
+                master.masterMessage = ex.Message;
+            }
+        }
 
+        private void GetShippingAddress(string orderId)
+        {
+            try
+            {
+                SqlDataReader dr = default(SqlDataReader);
+                using (SqlConnection conn = new SqlConnection(strConn))
+                {
+                    SqlCommand cmd = new SqlCommand("spGetCustomerShippingAddress", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.Add(new SqlParameter("@OrderHistoryID", int.Parse(orderId)));
+                    conn.Open();
+
+                    dr = cmd.ExecuteReader();
+                    if (dr.HasRows)
+                    {
+                        dr.Read();
+                        txtStreet.Text = dr["Street"].ToString();
+                        txtCity.Text = dr["City"].ToString();
+                        txtCountry.Text = dr["Country"].ToString();
+                        txtProvince.Text = dr["Province"].ToString();
+                        txtPostal.Text = dr["PostalCode"].ToString();
                     }
                 }
             }
