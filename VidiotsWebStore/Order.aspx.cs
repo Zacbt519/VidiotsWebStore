@@ -15,7 +15,7 @@ namespace VidiotsWebStore
     {
         private string strConn = ConfigurationManager.ConnectionStrings["cnn"].ConnectionString;
         VidiotsTemplate master;
-        int billingID;
+        private int billingID = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
             master = (VidiotsTemplate)this.Master;
@@ -46,6 +46,8 @@ namespace VidiotsWebStore
                         country.InnerText = dr["Country"].ToString();
                         postalCode.InnerText = dr["PostalCode"].ToString();
                         billingID = int.Parse(dr["AddressID"].ToString());
+
+                        Response.Cookies["billingID"].Value = billingID.ToString();
                     }
 
                     
@@ -153,6 +155,7 @@ namespace VidiotsWebStore
 
         private void CreateOrder( int addressID, string auth)
         {
+            int billingID = int.Parse(Request.Cookies["billingID"].Value.ToString());
             string payChoice;
             try
             {
@@ -194,6 +197,7 @@ namespace VidiotsWebStore
 
         private void CreateOrder(string auth)
         {
+            int billingID = int.Parse(Request.Cookies["billingID"].Value.ToString());
             string payChoice;
             try
             {
@@ -248,6 +252,7 @@ namespace VidiotsWebStore
                 mail.Body += "<br/><a href='OrderDetails.aspx?orderId = '" + orderNum + "'> View Order </a>";
                 SmtpClient smtpClient = new SmtpClient("localhost");
                 smtpClient.Send(mail);
+                master.masterMessage = "Email Sent";
             }
 
             if(chkShipping.Checked == false)
@@ -256,6 +261,7 @@ namespace VidiotsWebStore
                 mail.Body += "<br/><a href='OrderDetails.aspx?orderId = '" + orderNum + "'> View Order </a>";
                 SmtpClient smtpClient = new SmtpClient("localhost");
                 smtpClient.Send(mail);
+                master.masterMessage = "Email Sent";
             }
 
             

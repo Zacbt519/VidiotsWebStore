@@ -3,8 +3,10 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-
-    <asp:GridView ID="grvCart" runat="server" AutoGenerateColumns="False">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-10">
+                <asp:GridView ID="grvCart" runat="server" AutoGenerateColumns="False">
         <Columns>
             <asp:BoundField DataField="ProductID" HeaderText="Product ID" ReadOnly="True" />
             <asp:BoundField DataField="ProductName" HeaderText="Product Name" ReadOnly="True" />
@@ -57,4 +59,9 @@
 
         </div>
     </asp:Panel>
+            </div>
+        </div>
+    </div>
+
+    
 </asp:Content>
