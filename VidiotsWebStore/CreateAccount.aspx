@@ -45,7 +45,7 @@
                 <br />
                 <div class="form-group">
                     <label for="txtDOB">Date of Birth:</label>
-                    <asp:TextBox ID="txtDOB" runat="server" Text="MM/DD/YYYY" TextMode="Date"></asp:TextBox>
+                    <asp:TextBox ID="txtDOB" runat="server" Text="MM/DD/YYYY" TextMode="Date" CssClass="form-control"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="rfvDOB" runat="server" ErrorMessage="Date of Birth is a required field" ControlToValidate="txtDOB">*</asp:RequiredFieldValidator>
                 </div>
                 <br />
@@ -63,21 +63,25 @@
                 <br />
                 <div class="form-group">
                     <label for="txtProvince">Province/State</label>
-                    <asp:TextBox ID="txtProvince" runat="server" CssClass="form-control" MaxLength="2"></asp:TextBox>
-                    <asp:RequiredFieldValidator ID="rfvProvince" runat="server" ErrorMessage="Province/State is a required field" ControlToValidate="txtProvince">*</asp:RequiredFieldValidator>
+                    <asp:DropDownList ID="ddlProvince" runat="server" CssClass="form-control" Enabled="false">
+                        <asp:ListItem Value="0" Text="---Select a Province/State---"></asp:ListItem>
+                    </asp:DropDownList>
+                    <asp:RequiredFieldValidator ID="rfvProvince" runat="server" ErrorMessage="Province/State is a required field" ControlToValidate="ddlProvince">*</asp:RequiredFieldValidator>
                 </div>
                 <br />
                 <div class="form-group">
                     <label for="txtPostalCode">Zip/Postal Code:</label>
                     <asp:TextBox ID="txtPostalCode" runat="server" CssClass="form-control" MaxLength="7"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="rfvPostalCode" runat="server" ErrorMessage="Zip/Postal code is a required field" ControlToValidate="txtPostalCode">*</asp:RequiredFieldValidator>
-                    
+                    <asp:RegularExpressionValidator ID="revZip" runat="server" ControlToValidate="txtPostalCode" ErrorMessage="Postal Code/ZIP not in correct format">*</asp:RegularExpressionValidator>
                 </div>
                 <br />
                 <div class="form-group">
                     <label for="txtCountry">Country:</label>
-                    <asp:TextBox ID="txtCountry" runat="server" CssClass="form-control" MaxLength="50"></asp:TextBox>
-                    <asp:RequiredFieldValidator ID="rfvCountry" runat="server" ErrorMessage="Country is required" ControlToValidate="txtCountry">*</asp:RequiredFieldValidator>
+                    <asp:DropDownList ID="ddlCountry" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlCountry_SelectedIndexChanged" AutoPostBack="true">
+                        <asp:ListItem Value="0" Text="---Select a Country---"></asp:ListItem>
+                    </asp:DropDownList>
+                    <asp:RequiredFieldValidator ID="rfvCountry" runat="server" ErrorMessage="Country is required" ControlToValidate="ddlCountry">*</asp:RequiredFieldValidator>
                 </div>
                 <br />
                 <div class="form-group">

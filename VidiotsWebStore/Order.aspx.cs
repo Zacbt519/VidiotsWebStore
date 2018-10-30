@@ -249,7 +249,7 @@ namespace VidiotsWebStore
             if(chkShipping.Checked == true)
             {
                 mail.Body += "<br/><h4>Delivery Address</h4><br/><br/><p>" + txtStreet.Text + "<br/>" + txtCity.Text + ", " + txtProvince.Text + "<br/>" + txtCountry.Text + "<br/>" + txtPostal.Text + "</p>";
-                mail.Body += "<br/><a href='OrderDetails.aspx?orderId = '" + orderNum + "'> View Order </a>";
+                mail.Body += "<br/><a href='http://localhost:49487/OrderDetails.aspx?orderId=" + orderNum + "'> View Order </a>";
                 SmtpClient smtpClient = new SmtpClient("localhost");
                 smtpClient.Send(mail);
                 master.masterMessage = "Email Sent";
@@ -258,7 +258,7 @@ namespace VidiotsWebStore
             if(chkShipping.Checked == false)
             {
                 mail.Body += "<br/><h4>Delivery Address</h4><br/><br/><p>"+ streetAddress.InnerText +"<br/>" +cityAndProvince.InnerText  + "<br/>" + country.InnerText + "<br/>" + postalCode.InnerText + "</p>";
-                mail.Body += "<br/><a href='OrderDetails.aspx?orderId = '" + orderNum + "'> View Order </a>";
+                mail.Body += "<br/><a href='http://localhost:49487/OrderDetails.aspx?orderId=" + orderNum + "'> View Order </a>";
                 SmtpClient smtpClient = new SmtpClient("localhost");
                 smtpClient.Send(mail);
                 master.masterMessage = "Email Sent";
