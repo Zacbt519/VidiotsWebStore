@@ -25,7 +25,6 @@
                             </ItemTemplate>
                         </asp:TemplateField>
                     </Columns>
-                    
                 </asp:GridView>
                 <br />
                 <asp:Label ID="lblOrderSubtotal" runat="server" Text="Subtotal: "></asp:Label>
@@ -36,7 +35,6 @@
                 <br />
                 <asp:Label ID="lblOrderTotal" runat="server" Text="Order Total: "></asp:Label>
                 <br /><br />
-
                 <div class="form-inline">
                     <asp:Button ID="btnCheckout" runat="server" CssClass="btn btn-primary" Text="Check Out" OnClick="btnCheckout_Click" />
                     <a href="index.aspx" class="btn btn-primary" style="margin-left:1%; margin-right:1%;">Add Items to Cart</a>
