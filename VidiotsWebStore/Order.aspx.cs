@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Net.Mail;
@@ -101,12 +102,12 @@ namespace VidiotsWebStore
                 if (chkShipping.Checked == true)
                 {
                     CreateOrder(CreateShippingAddress(), GenerateAuthNumber());
-                    SendOrderEmail();
+                    
                 }
                 else
                 {
                     CreateOrder(GenerateAuthNumber());
-                    SendOrderEmail();
+                    
                 }
                 
             }
@@ -173,9 +174,14 @@ namespace VidiotsWebStore
                     cmd.Parameters.Add(new SqlParameter("@BillingAddress", billingID));
                     cmd.Parameters.Add(new SqlParameter("@ShippingAddress", addressID));
                     cmd.Parameters.Add(new SqlParameter("@AuthNumber", auth));
+                    SqlParameter output = new SqlParameter("@OrderID", System.Data.SqlDbType.SmallInt);
+                    output.Direction = System.Data.ParameterDirection.Output;
+                    cmd.Parameters.Add(output);
                     cmd.Connection.Open();
 
                     cmd.ExecuteNonQuery();
+                    int order = int.Parse(output.Value.ToString());
+                    SendOrderEmail(auth,order);
                     
                    
                 }
@@ -209,9 +215,14 @@ namespace VidiotsWebStore
                     cmd.Parameters.Add(new SqlParameter("@BillingAddress", billingID));
                     cmd.Parameters.Add(new SqlParameter("@ShippingAddress", billingID));
                     cmd.Parameters.Add(new SqlParameter("@AuthNumber", auth));
+                    SqlParameter output = new SqlParameter("@OrderID", System.Data.SqlDbType.SmallInt);
+                    output.Direction = System.Data.ParameterDirection.Output;
+                    cmd.Parameters.Add(output);
                     cmd.Connection.Open();
 
                     cmd.ExecuteNonQuery();
+                    int order = int.Parse(output.Value.ToString());
+                    SendOrderEmail(auth, order);
                 }
             }
             catch (Exception ex)
@@ -220,17 +231,59 @@ namespace VidiotsWebStore
             }
         }
 
-        private void SendOrderEmail()
+        private void SendOrderEmail(string auth, int orderNum)
         {
+
             MailMessage mail = new MailMessage();
             mail.From = new MailAddress("orders@vidiots.com");
             mail.To.Add(new MailAddress(GetCustomerEmail()));
             mail.Subject = "Order Confirmation";
             mail.IsBodyHtml = true;
-            mail.Body = "<h1>Your order has been created!</h1>";
+            mail.Body = "<h1>Your order has been created!</h1><br/><br/><h3>Order Number: " + auth + "</h3><br><br><h2>Items Ordered:</h2><br/><br/>";
+            string items = PopulateItems(orderNum);
+            mail.Body += items;
+            if(chkShipping.Checked == true)
+            {
+                mail.Body += "<br/><h4>Delivery Address</h4><br/><br/><p>" + txtStreet.Text + "<br/>" + txtCity.Text + ", " + txtProvince.Text + "<br/>" + txtCountry.Text + "<br/>" + txtPostal.Text + "</p>";
+                mail.Body += "<br/><a href='OrderDetails.aspx?orderId = '" + orderNum + "'> View Order </a>";
+                SmtpClient smtpClient = new SmtpClient("localhost");
+                smtpClient.Send(mail);
+            }
 
-            SmtpClient smtpClient = new SmtpClient("localhost");
-            smtpClient.Send(mail);
+            if(chkShipping.Checked == false)
+            {
+                mail.Body += "<br/><h4>Delivery Address</h4><br/><br/><p>"+ streetAddress.InnerText +"<br/>" +cityAndProvince.InnerText  + "<br/>" + country.InnerText + "<br/>" + postalCode.InnerText + "</p>";
+                mail.Body += "<br/><a href='OrderDetails.aspx?orderId = '" + orderNum + "'> View Order </a>";
+                SmtpClient smtpClient = new SmtpClient("localhost");
+                smtpClient.Send(mail);
+            }
+
+            
+           
+        }
+
+        private string PopulateItems(int orderId)
+        {
+            string items = string.Empty;
+            
+            using(SqlConnection conn = new SqlConnection(strConn))
+            {
+                DataTable dt = new DataTable();
+                SqlCommand cmd = new SqlCommand("spGetItemsFromOrderHistory",conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add(new SqlParameter("@CartID", int.Parse(Request.Cookies["CartID"].Value.ToString())));
+                cmd.Parameters.Add(new SqlParameter("@OrderHistoryID", orderId));
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                cmd.Connection.Open();
+                da.Fill(dt);
+
+                foreach(DataRow row in dt.Rows)
+                {
+                    items += "<p>"+ row["ProductName"].ToString() + "</p>";
+                }
+
+                return items;
+            }
         }
 
         private string GetCustomerEmail()
