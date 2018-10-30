@@ -25,8 +25,8 @@ namespace VidiotsWebStore
         {
             if (ValidateAge() == true)
             {
-                InsertAccount();
                 master.masterMessage = "";
+                InsertAccount();
             }
             else
             {

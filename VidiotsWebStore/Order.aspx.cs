@@ -17,6 +17,7 @@ namespace VidiotsWebStore
         int billingID;
         protected void Page_Load(object sender, EventArgs e)
         {
+
             master = (VidiotsTemplate)this.Master;
             string customerID = Session["customerID"].ToString();
             if (!IsPostBack)
@@ -40,10 +41,11 @@ namespace VidiotsWebStore
                     if (dr.HasRows)
                     {
                         dr.Read();
-                        streetAddress.InnerText = dr["Street"].ToString();
-                        cityAndProvince.InnerText = dr["City"].ToString() + ", " + dr["Province"].ToString();
-                        country.InnerText = dr["Country"].ToString();
-                        postalCode.InnerText = dr["PostalCode"].ToString();
+                        txtBillingStreet.Text = dr["Street"].ToString();
+                        txtBillingCity.Text = dr["City"].ToString();
+                        txtBillingCountry.Text = dr["Country"].ToString();
+                        txtBillingProvince.Text = dr["Province"].ToString();
+                        txtBillingPostal.Text = dr["PostalCode"].ToString();
                         billingID = int.Parse(dr["AddressID"].ToString());
                     }
 
@@ -100,11 +102,13 @@ namespace VidiotsWebStore
                 
                 if (chkShipping.Checked == true)
                 {
+                    UpdateBillingAddress();
                     CreateOrder(CreateShippingAddress(), GenerateAuthNumber());
                     SendOrderEmail();
                 }
                 else
                 {
+                    UpdateBillingAddress();
                     CreateOrder(GenerateAuthNumber());
                     SendOrderEmail();
                 }
@@ -113,6 +117,24 @@ namespace VidiotsWebStore
             catch(Exception ex)
             {
                 master.masterMessage = ex.Message;
+            }
+        }
+
+        private void UpdateBillingAddress()
+        {
+            using (SqlConnection conn = new SqlConnection(strConn))
+            {
+                SqlCommand cmd = new SqlCommand("spUpdateBillingAddress", conn);
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                cmd.Parameters.Add(new SqlParameter("@AddressID", billingID));
+                cmd.Parameters.Add(new SqlParameter("@Street", txtBillingStreet.Text));
+                cmd.Parameters.Add(new SqlParameter("@City", txtBillingCity.Text));
+                cmd.Parameters.Add(new SqlParameter("@Province", txtBillingProvince.Text));
+                cmd.Parameters.Add(new SqlParameter("@Country", txtBillingCountry.Text));
+                cmd.Parameters.Add(new SqlParameter("@PostalCode", txtBillingPostal.Text));
+                cmd.Connection.Open();
+
+                cmd.ExecuteNonQuery();
             }
         }
 
@@ -176,8 +198,8 @@ namespace VidiotsWebStore
                     cmd.Connection.Open();
 
                     cmd.ExecuteNonQuery();
-                    
-                   
+
+                    master.masterMessage = "Order Created!";
                 }
             }
             catch (Exception ex)

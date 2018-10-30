@@ -41,9 +41,7 @@ namespace VidiotsWebStore
                     {
                         grvCustomers.DataSource = dr;
                         grvCustomers.DataBind();
-
                     }
-
                 }
             }
             catch (Exception ex)
