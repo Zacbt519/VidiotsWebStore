@@ -22,7 +22,75 @@ namespace VidiotsWebStore
             string customerID = Session["customerID"].ToString();
             if (!IsPostBack)
             {
+                PopulateCountries();
                 GetBillingAddress(customerID);
+            }
+        }
+
+        private void PopulateCountries()
+        {
+            ddlBillingCountry.Items.Add("Canada");
+            ddlBillingCountry.Items.Add("USA");
+            ddlCountry.Items.Add("Canada");
+            ddlCountry.Items.Add("USA");
+        }
+        protected void billingProvinces()
+        {
+            if (ddlBillingCountry.SelectedValue == "Canada")
+            {
+                string[] prov = { "AB", "BC", "MB", "NB", "NL", "NT", "NS", "NU", "ON", "PE", "QC", "SK", "YT" };
+                ddlBillingProvince.DataSource = prov;
+                ddlBillingProvince.DataBind();
+                ddlBillingProvince.Enabled = true;
+                revBillingZip.ValidationExpression = @"^([a-zA-Z]\d[a-zA-Z]( )?\d[a-zA-Z]\d)$";
+            }
+            else if (ddlBillingCountry.SelectedValue == "USA")
+            {
+                string[] states = { "AL", "AK", "AS", "AZ", "AR", "CA", "CO", "CT", "DE", "DC", "FM", "FL", "GA", "GU", "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MH", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ", "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PW", "PA", "PR", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VI", "VA", "WA", "WV", "WI", "WY" };
+                ddlBillingProvince.DataSource = states;
+                ddlBillingProvince.DataBind();
+                ddlBillingProvince.Enabled = true;
+                revBillingZip.ValidationExpression = @"^\d{5}$";
+            }
+            else
+            {
+                ddlBillingProvince.SelectedIndex = 0;
+                ddlBillingProvince.DataSource = null;
+                ddlBillingProvince.DataBind();
+                ddlBillingProvince.Items.Insert(0, "---Select a Province/State");
+                ddlBillingProvince.Enabled = false;
+            }
+        }
+        protected void ddlBillingCountry_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            billingProvinces();
+        }
+
+        protected void ddlCountry_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlCountry.SelectedValue == "Canada")
+            {
+                string[] prov = { "AB", "BC", "MB", "NB", "NL", "NT", "NS", "NU", "ON", "PE", "QC", "SK", "YT" };
+                ddlProvince.DataSource = prov;
+                ddlProvince.DataBind();
+                ddlProvince.Enabled = true;
+                revZip.ValidationExpression = @"^([a-zA-Z]\d[a-zA-Z]( )?\d[a-zA-Z]\d)$";
+            }
+            else if (ddlCountry.SelectedValue == "USA")
+            {
+                string[] states = { "AL", "AK", "AS", "AZ", "AR", "CA", "CO", "CT", "DE", "DC", "FM", "FL", "GA", "GU", "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MH", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ", "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PW", "PA", "PR", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VI", "VA", "WA", "WV", "WI", "WY" };
+                ddlProvince.DataSource = states;
+                ddlProvince.DataBind();
+                ddlProvince.Enabled = true;
+                revZip.ValidationExpression = @"^\d{5}$";
+            }
+            else
+            {
+                ddlProvince.SelectedIndex = 0;
+                ddlProvince.DataSource = null;
+                ddlProvince.DataBind();
+                ddlProvince.Items.Insert(0, "---Select a Province/State");
+                ddlProvince.Enabled = false;
             }
         }
 
@@ -41,10 +109,12 @@ namespace VidiotsWebStore
                     if (dr.HasRows)
                     {
                         dr.Read();
-                        streetAddress.InnerText = dr["Street"].ToString();
-                        cityAndProvince.InnerText = dr["City"].ToString() + ", " + dr["Province"].ToString();
-                        country.InnerText = dr["Country"].ToString();
-                        postalCode.InnerText = dr["PostalCode"].ToString();
+                        txtBillingStreet.Text = dr["Street"].ToString();
+                        txtBillingCity.Text = dr["City"].ToString();
+                        ddlBillingCountry.SelectedValue = dr["Country"].ToString();
+                        billingProvinces();
+                        ddlBillingProvince.SelectedValue = dr["Province"].ToString();
+                        txtBillingPostal.Text = dr["PostalCode"].ToString();
                         billingID = int.Parse(dr["AddressID"].ToString());
 
                         Response.Cookies["billingID"].Value = billingID.ToString();
@@ -103,11 +173,13 @@ namespace VidiotsWebStore
                 
                 if (chkShipping.Checked == true)
                 {
+                    UpdateBillingAddress();
                     CreateOrder(CreateShippingAddress(), GenerateAuthNumber());
                     
                 }
                 else
                 {
+                    UpdateBillingAddress();
                     CreateOrder(GenerateAuthNumber());
                     
                 }
@@ -116,6 +188,25 @@ namespace VidiotsWebStore
             catch(Exception ex)
             {
                 master.masterMessage = ex.Message;
+            }
+        }
+
+        private void UpdateBillingAddress()
+        {
+            using (SqlConnection conn = new SqlConnection(strConn))
+            {
+                SqlCommand cmd = new SqlCommand("spUpdateBillingAddress", conn);
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                cmd.Parameters.Add(new SqlParameter("@AddressID", billingID));
+                cmd.Parameters.Add(new SqlParameter("@Street", txtBillingStreet.Text));
+                cmd.Parameters.Add(new SqlParameter("@City", txtBillingCity.Text));
+                cmd.Parameters.Add(new SqlParameter("@Province", ddlBillingProvince.SelectedValue.ToString()));
+                cmd.Parameters.Add(new SqlParameter("@Country", ddlBillingCountry.SelectedValue.ToString()));
+                cmd.Parameters.Add(new SqlParameter("@PostalCode", txtBillingPostal.Text));
+                cmd.Connection.Open();
+
+                cmd.ExecuteNonQuery();
+
             }
         }
 
@@ -139,8 +230,8 @@ namespace VidiotsWebStore
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.Parameters.Add(new SqlParameter("@Street", txtStreet.Text));
                 cmd.Parameters.Add(new SqlParameter("@City", txtCity.Text));
-                cmd.Parameters.Add(new SqlParameter("@Province", txtProvince.Text));
-                cmd.Parameters.Add(new SqlParameter("@Country", txtCountry.Text));
+                cmd.Parameters.Add(new SqlParameter("@Province", ddlProvince.SelectedValue.ToString()));
+                cmd.Parameters.Add(new SqlParameter("@Country", ddlCountry.SelectedValue.ToString()));
                 cmd.Parameters.Add(new SqlParameter("@PostalCode", txtPostal.Text));
                 cmd.Parameters.Add(new SqlParameter("@CustomerID", Session["CustomerID"].ToString()));
                 SqlParameter output = new SqlParameter("@AddressID", System.Data.SqlDbType.Int);
@@ -185,7 +276,7 @@ namespace VidiotsWebStore
                     cmd.ExecuteNonQuery();
                     int order = int.Parse(output.Value.ToString());
                     SendOrderEmail(auth,order);
-                    
+                    master.masterMessage = "Order Created!";
                    
                 }
             }
@@ -248,7 +339,7 @@ namespace VidiotsWebStore
             mail.Body += items;
             if(chkShipping.Checked == true)
             {
-                mail.Body += "<br/><h4>Delivery Address</h4><br/><br/><p>" + txtStreet.Text + "<br/>" + txtCity.Text + ", " + txtProvince.Text + "<br/>" + txtCountry.Text + "<br/>" + txtPostal.Text + "</p>";
+                mail.Body += "<br/><h4>Delivery Address</h4><br/><br/><p>" + txtStreet.Text + "<br/>" + txtCity.Text + ", " + ddlProvince.SelectedValue.ToString() + "<br/>" + ddlCountry.SelectedValue.ToString() + "<br/>" + txtPostal.Text + "</p>";
                 mail.Body += "<br/><a href='http://localhost:49487/OrderDetails.aspx?orderId=" + orderNum + "'> View Order </a>";
                 mail.Body += "<br/><h3>Order Details:</h3><br><p>Order Subtotal: " + string.Format("{0:C}", Session["orderSubtotal"]) + "</p><br/> <p> Tax: " + string.Format("{0:C}", Session["taxAmount"]) + "</p><br/><p>Shipping Amount: " + string.Format("{0:C}", Session["shipping"]) + "</p><br/><p> Order Total: " + string.Format("{0:C}", Session["total"]) + "</p>";
                 SmtpClient smtpClient = new SmtpClient("localhost");
@@ -258,7 +349,7 @@ namespace VidiotsWebStore
 
             if(chkShipping.Checked == false)
             {
-                mail.Body += "<br/><h4>Delivery Address</h4><br/><br/><p>"+ streetAddress.InnerText +"<br/>" +cityAndProvince.InnerText  + "<br/>" + country.InnerText + "<br/>" + postalCode.InnerText + "</p>";
+                mail.Body += "<br/><h4>Delivery Address</h4><br/><br/><p>"+ txtBillingStreet.Text +"<br/>" + txtBillingCity.Text + ", " + ddlBillingProvince.SelectedValue.ToString()  + "<br/>" + ddlBillingCountry.SelectedValue.ToString() + "<br/>" + txtBillingPostal.Text + "</p>";
                 mail.Body += "<br/><a href='http://localhost:49487/OrderDetails.aspx?orderId=" + orderNum + "'> View Order </a>";
                 mail.Body += "<br/><h3>Order Details:</h3><br><p>Order Subtotal: " + string.Format("{0:C}", Session["orderSubtotal"]) + "</p><br/> <p> Tax: " + string.Format("{0:C}", Session["taxAmount"]) + "</p><br/><p>Shipping Amount: " + string.Format("{0:C}", Session["shipping"]) + "</p><br/><p> Order Total: " + string.Format("{0:C}", Session["total"]) + "</p>";
                 SmtpClient smtpClient = new SmtpClient("localhost");
