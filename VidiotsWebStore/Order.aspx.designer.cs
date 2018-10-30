@@ -58,13 +58,13 @@ namespace VidiotsWebStore {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator2;
         
         /// <summary>
-        /// txtBillingProvince control.
+        /// ddlBillingProvince control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtBillingProvince;
+        protected global::System.Web.UI.WebControls.DropDownList ddlBillingProvince;
         
         /// <summary>
         /// RequiredFieldValidator3 control.
@@ -76,13 +76,13 @@ namespace VidiotsWebStore {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator3;
         
         /// <summary>
-        /// txtBillingCountry control.
+        /// ddlBillingCountry control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtBillingCountry;
+        protected global::System.Web.UI.WebControls.DropDownList ddlBillingCountry;
         
         /// <summary>
         /// RequiredFieldValidator4 control.
@@ -110,6 +110,15 @@ namespace VidiotsWebStore {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator5;
+        
+        /// <summary>
+        /// revBillingZip control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator revBillingZip;
         
         /// <summary>
         /// chkShipping control.
@@ -166,13 +175,13 @@ namespace VidiotsWebStore {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvCity;
         
         /// <summary>
-        /// txtProvince control.
+        /// ddlProvince control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtProvince;
+        protected global::System.Web.UI.WebControls.DropDownList ddlProvince;
         
         /// <summary>
         /// rfvProvince control.
@@ -184,13 +193,13 @@ namespace VidiotsWebStore {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvProvince;
         
         /// <summary>
-        /// txtCountry control.
+        /// ddlCountry control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCountry;
+        protected global::System.Web.UI.WebControls.DropDownList ddlCountry;
         
         /// <summary>
         /// rfvCountry control.
@@ -218,6 +227,15 @@ namespace VidiotsWebStore {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvPostal;
+        
+        /// <summary>
+        /// revZip control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator revZip;
         
         /// <summary>
         /// rdoCredit control.
