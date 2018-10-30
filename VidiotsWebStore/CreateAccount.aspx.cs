@@ -19,14 +19,25 @@ namespace VidiotsWebStore
         protected void Page_Load(object sender, EventArgs e)
         {
             master = (VidiotsTemplate)this.Master;
+            if (!IsPostBack)
+            {
+                PopulateCountries();
+            }
+        }
+
+        private void PopulateCountries()
+        {
+            ddlCountry.Items.Add("Canada");
+            ddlCountry.Items.Add("USA");
         }
 
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
             if (ValidateAge() == true)
             {
-                InsertAccount();
                 master.masterMessage = "";
+                InsertAccount();
+                
             }
             else
             {
@@ -53,8 +64,8 @@ namespace VidiotsWebStore
             string street = txtAddress.Text;
             string city = txtCity.Text;
             string postalCode = txtPostalCode.Text;
-            string province = txtProvince.Text;
-            string country = txtCountry.Text;
+            string province = ddlProvince.SelectedItem.ToString();
+            string country = ddlCountry.SelectedItem.ToString();
             string phoneNumber = txtPhoneNumber.Text;
             string email = txtEmail.Text;
 
@@ -101,7 +112,7 @@ namespace VidiotsWebStore
         {
             try
             {
-                string msg = "<p>Your Account has been created, Click the link to confirm your account <a href='Confirmation.aspx?customerID=" + accountID + "'>Confirmation Link</a></p>";
+                string msg = "<p>Your Account has been created, Click the link to confirm your account <a href='http://localhost:49487/Confirmation.aspx?customerID=" + accountID + "'>Confirmation Link</a></p>";
                 MailMessage mail = new MailMessage();
                 mail.To.Add(email);
                 mail.From = new MailAddress("noreply@vidiots.com");
@@ -130,6 +141,34 @@ namespace VidiotsWebStore
             else
             {
                 return true;
+            }
+        }
+
+        protected void ddlCountry_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(ddlCountry.SelectedValue == "Canada")
+            {
+                string[] prov = {"AB", "BC", "MB", "NB", "NL", "NT", "NS", "NU", "ON", "PE", "QC", "SK", "YT" };
+                ddlProvince.DataSource = prov;
+                ddlProvince.DataBind();
+                ddlProvince.Enabled = true;
+                revZip.ValidationExpression = @"^([a-zA-Z]\d[a-zA-Z]( )?\d[a-zA-Z]\d)$";
+            }
+            else if(ddlCountry.SelectedValue == "USA")
+            {
+                string[] states = {"AL", "AK", "AS", "AZ", "AR", "CA", "CO", "CT", "DE", "DC", "FM", "FL", "GA", "GU", "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MH", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ", "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PW", "PA", "PR", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VI", "VA", "WA", "WV", "WI", "WY"};
+                ddlProvince.DataSource = states;
+                ddlProvince.DataBind();
+                ddlProvince.Enabled = true;
+                revZip.ValidationExpression = @"^\d{5}$";
+            }
+            else
+            {
+                ddlProvince.SelectedIndex = 0;
+                ddlProvince.DataSource = null;
+                ddlProvince.DataBind();
+                ddlProvince.Items.Insert(0, "---Select a Province/State");
+                ddlProvince.Enabled = false;
             }
         }
     }

@@ -13,19 +13,22 @@ namespace VidiotsWebStore
     {
         private string strConn = ConfigurationManager.ConnectionStrings["cnn"].ConnectionString;
         VidiotsTemplate master;
+        string customerID;
         protected void Page_Load(object sender, EventArgs e)
         {
+            Session["customerId"] = 1;
+            customerID = Session["customerId"].ToString();
             master = (VidiotsTemplate)this.Master;
             if (!IsPostBack)
             {
-                string customerID = "1";
+                
                 if (!string.IsNullOrEmpty(customerID))
                 {
                     RetrieveAccount(customerID);
                 }
             }
 
-            //string customerID = Request.QueryString["customerID"].ToString();
+            
 
         }
 
@@ -49,7 +52,6 @@ namespace VidiotsWebStore
                         txtAddress.Text = dr["Street"].ToString();
                         txtCity.Text = dr["City"].ToString();
                         txtCountry.Text = dr["Country"].ToString();
-                        txtDOB.Text = dr["DateOfBirth"].ToString();
                         txtEmail.Text = dr["EmailAddress"].ToString();
                         txtFirstName.Text = dr["FirstName"].ToString();
                         txtLastName.Text = dr["LastName"].ToString();
@@ -66,6 +68,10 @@ namespace VidiotsWebStore
                         txtPostalCode.Text = dr["PostalCode"].ToString();
                         txtProvince.Text = dr["Province"].ToString();
                         txtUserName.Text = dr["UserName"].ToString();
+
+                        DateTime dt = Convert.ToDateTime(dr["DateOfBirth"].ToString());
+
+                        txtDOB.Text = String.Format("{0:yyyy-MM-dd}", dt);
                     }
                     
                 }

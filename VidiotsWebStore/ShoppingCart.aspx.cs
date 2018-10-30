@@ -267,6 +267,13 @@ namespace VidiotsWebStore
                         UpdateQuantity(cartID, prodId, quantity);
                     }
                 }
+                else if(txt.Text == string.Empty)
+                {
+                    string prodId = grvCart.Rows[x].Cells[0].Text;
+                    string cartID = Request.Cookies["cartID"].Value;
+
+                    DeleteFromCart(cartID, prodId);
+                }
                 i++;
             }
         }

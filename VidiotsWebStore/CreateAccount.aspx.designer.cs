@@ -175,13 +175,13 @@ namespace VidiotsWebStore {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvCity;
         
         /// <summary>
-        /// txtProvince control.
+        /// ddlProvince control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtProvince;
+        protected global::System.Web.UI.WebControls.DropDownList ddlProvince;
         
         /// <summary>
         /// rfvProvince control.
@@ -211,13 +211,22 @@ namespace VidiotsWebStore {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvPostalCode;
         
         /// <summary>
-        /// txtCountry control.
+        /// revZip control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCountry;
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator revZip;
+        
+        /// <summary>
+        /// ddlCountry control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlCountry;
         
         /// <summary>
         /// rfvCountry control.
