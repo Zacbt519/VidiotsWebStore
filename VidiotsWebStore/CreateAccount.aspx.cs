@@ -37,7 +37,6 @@ namespace VidiotsWebStore
             {
                 master.masterMessage = "";
                 InsertAccount();
-                
             }
             else
             {
