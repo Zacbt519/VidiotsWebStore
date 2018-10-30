@@ -8,11 +8,35 @@
                 <ul class="list-group">
                     <li class="list-group-item">
                         <br />
-                        <h5>Billing Address</h5>
-                        <p runat="server" id="streetAddress"> </p>
-                        <p runat="server" id="cityAndProvince"></p>
-                        <p runat="server" id="country"></p>
-                        <p runat="server" id="postalCode"></p>
+                        <asp:Panel ID="pnlBilling" runat="server" >
+                            <h5>Billing Address</h5>
+                            <br />
+                            <div class="form-group">
+                                <label>Street Address:</label>
+                                <asp:TextBox ID="txtBillingStreet" runat="server" MaxLength="50" CssClass="form-control"></asp:TextBox>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Street Address is required" ControlToValidate="txtBillingStreet">*</asp:RequiredFieldValidator>
+                            </div>
+                            <div class="form-group">
+                                <label>City:</label>
+                                <asp:TextBox ID="txtBillingCity" runat="server" MaxLength="50" CssClass="form-control"></asp:TextBox>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="City is required" ControlToValidate="txtBillingCity">*</asp:RequiredFieldValidator>
+                            </div>
+                            <div class="form-group">
+                                <label>Province</label>
+                                <asp:TextBox ID="txtBillingProvince" runat="server" MaxLength="2" CssClass="form-control"></asp:TextBox>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="Province is required" ControlToValidate="txtBillingProvince">*</asp:RequiredFieldValidator>
+                            </div>
+                            <div class="form-group">
+                                <label>Country:</label>
+                                <asp:TextBox ID="txtBillingCountry" runat="server" MaxLength="50" CssClass="form-control"></asp:TextBox>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ErrorMessage="Country is required" ControlToValidate="txtBillingCountry">*</asp:RequiredFieldValidator>
+                            </div>
+                            <div class="form-group">
+                                <label>Postal Code:</label>
+                                <asp:TextBox ID="txtBillingPostal" runat="server" MaxLength="6" CssClass="form-control"></asp:TextBox>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ErrorMessage="Postal Code/Zip is required" ControlToValidate="txtBillingPostal">*</asp:RequiredFieldValidator>
+                            </div>
+                        </asp:Panel>
                         <br />
                         <asp:CheckBox ID="chkShipping" AutoPostBack="true" runat="server" Text="Shipping Address diferent from Billing Address?" OnCheckedChanged="chkShipping_CheckedChanged" />
                         <br /><br />
