@@ -250,6 +250,7 @@ namespace VidiotsWebStore
             {
                 mail.Body += "<br/><h4>Delivery Address</h4><br/><br/><p>" + txtStreet.Text + "<br/>" + txtCity.Text + ", " + txtProvince.Text + "<br/>" + txtCountry.Text + "<br/>" + txtPostal.Text + "</p>";
                 mail.Body += "<br/><a href='http://localhost:49487/OrderDetails.aspx?orderId=" + orderNum + "'> View Order </a>";
+                mail.Body += "<br/><h3>Order Details:</h3><br><p>Order Subtotal: " + string.Format("{0:C}", Session["orderSubtotal"]) + "</p><br/> <p> Tax: " + string.Format("{0:C}", Session["taxAmount"]) + "</p><br/><p>Shipping Amount: " + string.Format("{0:C}", Session["shipping"]) + "</p><br/><p> Order Total: " + string.Format("{0:C}", Session["total"]) + "</p>";
                 SmtpClient smtpClient = new SmtpClient("localhost");
                 smtpClient.Send(mail);
                 master.masterMessage = "Email Sent";
@@ -259,13 +260,16 @@ namespace VidiotsWebStore
             {
                 mail.Body += "<br/><h4>Delivery Address</h4><br/><br/><p>"+ streetAddress.InnerText +"<br/>" +cityAndProvince.InnerText  + "<br/>" + country.InnerText + "<br/>" + postalCode.InnerText + "</p>";
                 mail.Body += "<br/><a href='http://localhost:49487/OrderDetails.aspx?orderId=" + orderNum + "'> View Order </a>";
+                mail.Body += "<br/><h3>Order Details:</h3><br><p>Order Subtotal: " + string.Format("{0:C}", Session["orderSubtotal"]) + "</p><br/> <p> Tax: " + string.Format("{0:C}", Session["taxAmount"]) + "</p><br/><p>Shipping Amount: " + string.Format("{0:C}", Session["shipping"]) + "</p><br/><p> Order Total: " + string.Format("{0:C}", Session["total"]) + "</p>";
                 SmtpClient smtpClient = new SmtpClient("localhost");
                 smtpClient.Send(mail);
                 master.masterMessage = "Email Sent";
             }
 
-            
-           
+
+            Request.Cookies["cartID"].Expires = DateTime.Now.AddDays(-3);
+            Response.Cookies["cartID"].Expires = DateTime.Now.AddDays(-3);
+            Response.Cookies["cartID"].Value = (0).ToString();
         }
 
         private string PopulateItems(int orderId)

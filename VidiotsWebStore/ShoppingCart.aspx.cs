@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
+
 namespace VidiotsWebStore
 {
     public partial class ShoppingCart : System.Web.UI.Page
@@ -136,6 +137,11 @@ namespace VidiotsWebStore
             lblTax.Text += String.Format("{0:c}", taxAmount);
             double total = (orderSubtotal + shipping + taxAmount);
             lblOrderTotal.Text += String.Format("{0:c}", total);
+
+            Session["orderSubtotal"] = orderSubtotal;
+            Session["shipping"] = shipping;
+            Session["taxAmount"] = taxAmount;
+            Session["total"] = total;
 
         }
 
