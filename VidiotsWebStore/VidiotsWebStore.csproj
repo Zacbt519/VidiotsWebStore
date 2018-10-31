@@ -146,7 +146,8 @@
     </Compile>
     <Compile Include="admin\UpdateImage.aspx.designer.cs">
       <DependentUpon>UpdateImage.aspx</DependentUpon>
-
+	  <SubType>ASPXCodeBehind</SubType>
+	</Compile>
     <Compile Include="admin\UploadImage.aspx.cs">
       <DependentUpon>UploadImage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -298,6 +299,7 @@
     </Compile>
     <Compile Include="VidiotsTemplate.Master.designer.cs">
       <DependentUpon>VidiotsTemplate.Master</DependentUpon>
+	  <SubType>ASPXCodeBehind</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
