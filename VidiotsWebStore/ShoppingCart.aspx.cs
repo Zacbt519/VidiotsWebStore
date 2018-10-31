@@ -19,6 +19,7 @@ namespace VidiotsWebStore
             master = (VidiotsTemplate)this.Master;
             if (!IsPostBack)
             {
+                
                 string from = Request.QueryString["cart"];
                 if (from == "1")
                 {
@@ -281,6 +282,29 @@ namespace VidiotsWebStore
                     DeleteFromCart(cartID, prodId);
                 }
                 i++;
+            }
+
+            if (grvCart.Rows.Count == 0)
+            {
+                DeleteCart();
+                Request.Cookies["cartID"].Value = (0).ToString();
+                Request.Cookies["cartID"].Expires = DateTime.Now.AddDays(-30);
+                Response.Cookies["cartID"].Value = "0";
+                Response.Cookies["cartID"].Expires = DateTime.Now.AddDays(-30);
+            }
+        }
+
+        private void DeleteCart()
+        {
+            int cartID = int.Parse(Request.Cookies["cartID"].Value.ToString());
+            using (SqlConnection conn = new SqlConnection(strConn))
+            {
+                SqlCommand cmd = new SqlCommand("spDeleteEmptyCart", conn);
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                cmd.Parameters.Add(new SqlParameter("@CartID", cartID));
+                cmd.Connection.Open();
+                cmd.ExecuteNonQuery();
+                master.masterMessage = "Cart Deleted";
             }
         }
 
