@@ -39,7 +39,24 @@ namespace VidiotsWebStore
         {
             if (!IsPostBack)
             {
-                GetFeaturedProducts();
+                try
+                {
+                    if (Session["MasterType"] is null)
+                    {
+                        GetFeaturedProducts();
+
+                    }
+                    else
+                    {
+                        
+                    }
+                }
+                catch(Exception ex)
+                {
+
+                }
+               
+                
             }
         }
         

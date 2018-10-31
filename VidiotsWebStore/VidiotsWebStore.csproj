@@ -66,6 +66,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="admin\UpdateImage.aspx" />
     <Content Include="admin\VidiotsAdminTemplate.Master" />
     <None Include="packages.config" />
     <Content Include="admin\AddCategory.aspx" />
@@ -131,6 +132,13 @@
     </Compile>
     <Compile Include="admin\AdminSearchResults.aspx.designer.cs">
       <DependentUpon>AdminSearchResults.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\UpdateImage.aspx.cs">
+      <DependentUpon>UpdateImage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\UpdateImage.aspx.designer.cs">
+      <DependentUpon>UpdateImage.aspx</DependentUpon>
     </Compile>
     <Compile Include="admin\VidiotsAdminTemplate.Master.cs">
       <DependentUpon>VidiotsAdminTemplate.Master</DependentUpon>
