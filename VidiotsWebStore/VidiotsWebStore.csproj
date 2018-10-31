@@ -66,8 +66,12 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+
+    <Content Include="admin\UpdateImage.aspx" />
+
     <Content Include="admin\UploadImage.aspx" />
     <Content Include="admin\VerifyImages.aspx" />
+
     <Content Include="admin\VidiotsAdminTemplate.Master" />
     <None Include="packages.config" />
     <Content Include="admin\AddCategory.aspx" />
@@ -79,6 +83,7 @@
     <Content Include="Confirmation.aspx" />
     <Content Include="CreateAccount.aspx" />
     <Content Include="CustomerLogin.aspx" />
+    <Content Include="img\tidepods.jpg" />
     <Content Include="img\Airbender.jpg" />
     <Content Include="img\DareToBeStupid.jpg" />
     <Content Include="img\EvenWorse.jpg" />
@@ -134,6 +139,14 @@
     <Compile Include="admin\AdminSearchResults.aspx.designer.cs">
       <DependentUpon>AdminSearchResults.aspx</DependentUpon>
     </Compile>
+
+    <Compile Include="admin\UpdateImage.aspx.cs">
+      <DependentUpon>UpdateImage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\UpdateImage.aspx.designer.cs">
+      <DependentUpon>UpdateImage.aspx</DependentUpon>
+
     <Compile Include="admin\UploadImage.aspx.cs">
       <DependentUpon>UploadImage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -147,6 +160,7 @@
     </Compile>
     <Compile Include="admin\VerifyImages.aspx.designer.cs">
       <DependentUpon>VerifyImages.aspx</DependentUpon>
+
     </Compile>
     <Compile Include="admin\VidiotsAdminTemplate.Master.cs">
       <DependentUpon>VidiotsAdminTemplate.Master</DependentUpon>

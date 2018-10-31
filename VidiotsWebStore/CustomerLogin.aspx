@@ -9,7 +9,7 @@
                     <label for="txtUserName">Username:</label>
                     <asp:TextBox ID="txtUserName" runat="server" CssClass="form-control"></asp:TextBox>
                     <label for="txtPassword">Password:</label>
-                    <asp:TextBox ID="txtPassword" runat="server" CssClass="form-control"></asp:TextBox>
+                    <asp:TextBox ID="txtPassword" runat="server" CssClass="form-control" TextMode="Password"></asp:TextBox>
                 </div>
                 <asp:Button ID="btnLogin" runat="server" CssClass="btn btn-primary" Text="Login" OnClick="btnLogin_Click" />
             </div>
