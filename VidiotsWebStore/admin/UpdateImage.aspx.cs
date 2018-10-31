@@ -103,7 +103,56 @@ namespace VidiotsWebStore.admin
 
         protected void btnYes_Click(object sender, EventArgs e)
         {
-            DeleteImage(ddlImages.SelectedValue);
+            if(CheckForImage(ddlImages.SelectedValue) == false)
+            {
+                DeleteImage(ddlImages.SelectedValue);
+            }
+            else
+            {
+                master.masterMessage = "There are products on the database with this image. You must disassociate them before you can delete the image!";
+            }
+            
+        }
+
+        private bool CheckForImage(string selectedValue)
+        {
+            SqlDataReader dr = default(SqlDataReader);
+            using(SqlConnection conn = new SqlConnection(strConn))
+            {
+                SqlCommand cmd = new SqlCommand("spCheckForImage", conn);
+                cmd.Parameters.Add(new SqlParameter("@ImageID", int.Parse(selectedValue)));
+                SqlParameter output = new SqlParameter("@ProductCount", SqlDbType.Int);
+                output.Direction = ParameterDirection.Output;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add(output);
+                cmd.Connection.Open();
+
+                dr = cmd.ExecuteReader();
+                dr.Close();
+                if(VerifyRecords(output) == false)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+                
+            }
+        }
+
+        private bool VerifyRecords(SqlParameter output)
+        {
+            int results = int.Parse(output.Value.ToString());
+
+            if (results == 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
 
         private void DeleteImage(string selectedValue)
