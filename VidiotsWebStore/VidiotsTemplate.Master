@@ -40,7 +40,7 @@
                     <asp:Button ID="btnSearch" CssClass="btn btn-outline-light my-2 my-sm-0" runat="server" Text="Search" OnClick="btnSearch_Click" CausesValidation="false" />
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link">&nbsp;Login</a>
+                            <a href="CustomerLogin.aspx" class="nav-link">&nbsp;Login</a>
                         </li>
                     </ul>
                 </div>

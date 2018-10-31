@@ -19,7 +19,7 @@ namespace VidiotsWebStore
         protected void Page_Load(object sender, EventArgs e)
         {
             master = (VidiotsTemplate)this.Master;
-            string customerID = Session["customerID"].ToString();
+            string customerID = Session["UserID"].ToString();
             if (!IsPostBack)
             {
                 PopulateCountries();
@@ -233,7 +233,7 @@ namespace VidiotsWebStore
                 cmd.Parameters.Add(new SqlParameter("@Province", ddlProvince.SelectedValue.ToString()));
                 cmd.Parameters.Add(new SqlParameter("@Country", ddlCountry.SelectedValue.ToString()));
                 cmd.Parameters.Add(new SqlParameter("@PostalCode", txtPostal.Text));
-                cmd.Parameters.Add(new SqlParameter("@CustomerID", Session["CustomerID"].ToString()));
+                cmd.Parameters.Add(new SqlParameter("@CustomerID", Session["USerID"].ToString()));
                 SqlParameter output = new SqlParameter("@AddressID", System.Data.SqlDbType.Int);
                 output.Direction = System.Data.ParameterDirection.Output;
                 cmd.Parameters.Add(output);
@@ -262,7 +262,7 @@ namespace VidiotsWebStore
                 {
                     SqlCommand cmd = new SqlCommand("spCreateOrder", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    cmd.Parameters.Add(new SqlParameter("@CustomerID", int.Parse(Session["CustomerID"].ToString())));
+                    cmd.Parameters.Add(new SqlParameter("@CustomerID", int.Parse(Session["UserID"].ToString())));
                     cmd.Parameters.Add(new SqlParameter("@CartID", int.Parse(Request.Cookies["CartID"].Value.ToString())));
                     cmd.Parameters.Add(new SqlParameter("@PayType", payChoice));
                     cmd.Parameters.Add(new SqlParameter("@BillingAddress", billingID));
@@ -304,7 +304,7 @@ namespace VidiotsWebStore
                 {
                     SqlCommand cmd = new SqlCommand("spCreateOrder", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    cmd.Parameters.Add(new SqlParameter("@CustomerID", int.Parse(Session["CustomerID"].ToString())));
+                    cmd.Parameters.Add(new SqlParameter("@CustomerID", int.Parse(Session["UserID"].ToString())));
                     cmd.Parameters.Add(new SqlParameter("@CartID", int.Parse(Request.Cookies["CartID"].Value.ToString())));
                     cmd.Parameters.Add(new SqlParameter("@PayType", payChoice));
                     cmd.Parameters.Add(new SqlParameter("@BillingAddress", billingID));
@@ -394,7 +394,7 @@ namespace VidiotsWebStore
            using(SqlConnection conn = new SqlConnection(strConn))
            {
                 SqlCommand cmd = new SqlCommand("spGetCustomerEmail", conn);
-                cmd.Parameters.Add(new SqlParameter("@CustomerID", Session["CustomerID"]));
+                cmd.Parameters.Add(new SqlParameter("@CustomerID", Session["UserID"]));
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.Connection.Open();
                 dr = cmd.ExecuteReader(System.Data.CommandBehavior.CloseConnection);

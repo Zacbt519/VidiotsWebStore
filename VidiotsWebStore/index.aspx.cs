@@ -13,9 +13,30 @@ namespace VidiotsWebStore
     {
         private string strConn = ConfigurationManager.ConnectionStrings["cnn"].ConnectionString;
         VidiotsTemplate master;
+        protected void Page_PreInit(object sender, EventArgs e)
+        {
+            try
+            {
+                if (Session["UserType"].ToString() == "Admin")
+                {
+                    this.MasterPageFile = "~/admin/VidiotsAdminTemplate.Master";
+                    Session["MasterType"] = "Admin";
+                }
+                else if (Session["UserType"].ToString() == "Customer" || Session["UserType"] == null)
+                {
+                    this.MasterPageFile = "~VidiotsTemplate.Master";
+                    Session["MasterType"] = "User";
+                }
+            }
+
+            catch(Exception ex)
+            {
+
+            }
+            
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
-            master = (VidiotsTemplate)this.Master;
             if (!IsPostBack)
             {
                 GetFeaturedProducts();
