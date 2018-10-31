@@ -78,6 +78,7 @@
     <Content Include="Confirmation.aspx" />
     <Content Include="CreateAccount.aspx" />
     <Content Include="CustomerLogin.aspx" />
+    <Content Include="img\tidepods.jpg" />
     <Content Include="img\Airbender.jpg" />
     <Content Include="img\DareToBeStupid.jpg" />
     <Content Include="img\EvenWorse.jpg" />

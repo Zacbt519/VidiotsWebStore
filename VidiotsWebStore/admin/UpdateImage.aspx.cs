@@ -8,6 +8,7 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Data.Sql;
+using System.IO;
 
 namespace VidiotsWebStore.admin
 {
@@ -162,9 +163,14 @@ namespace VidiotsWebStore.admin
                 SqlCommand cmd = new SqlCommand("spDeleteImageByID", conn);
                 cmd.Parameters.Add(new SqlParameter("@ImageID", int.Parse(selectedValue)));
                 cmd.CommandType = CommandType.StoredProcedure;
+                SqlParameter output = new SqlParameter("@ImagePath", SqlDbType.VarChar, 50);
+                output.Direction = ParameterDirection.Output;
+                cmd.Parameters.Add(output);
                 cmd.Connection.Open();
                 cmd.ExecuteNonQuery();
                 FillComboBox();
+                File.Delete(Server.MapPath(output.Value.ToString()));
+                   
             }
         }
     }
