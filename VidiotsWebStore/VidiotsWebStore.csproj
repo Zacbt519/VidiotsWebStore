@@ -66,6 +66,8 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="admin\UploadImage.aspx" />
+    <Content Include="admin\VerifyImages.aspx" />
     <Content Include="admin\VidiotsAdminTemplate.Master" />
     <None Include="packages.config" />
     <Content Include="admin\AddCategory.aspx" />
@@ -131,6 +133,20 @@
     </Compile>
     <Compile Include="admin\AdminSearchResults.aspx.designer.cs">
       <DependentUpon>AdminSearchResults.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\UploadImage.aspx.cs">
+      <DependentUpon>UploadImage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\UploadImage.aspx.designer.cs">
+      <DependentUpon>UploadImage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\VerifyImages.aspx.cs">
+      <DependentUpon>VerifyImages.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\VerifyImages.aspx.designer.cs">
+      <DependentUpon>VerifyImages.aspx</DependentUpon>
     </Compile>
     <Compile Include="admin\VidiotsAdminTemplate.Master.cs">
       <DependentUpon>VidiotsAdminTemplate.Master</DependentUpon>
@@ -273,6 +289,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="tempImg\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
