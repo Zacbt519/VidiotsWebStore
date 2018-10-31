@@ -80,7 +80,34 @@ namespace VidiotsWebStore.admin
             }
             else
             {
+                if(txtFileName.Text.Contains(".jpg") || txtFileName.Text.Contains(".png"))
+                {
+                    UpdateImageInfo(ddlImages.SelectedValue);
+                    
+                }
+                else
+                {
+                    master.masterMessage = "File name must have a file extension! (Ex. .jpg, .png)";
+                }
                 
+            }
+        }
+
+        private void UpdateImageInfo(string imgID)
+        {
+            using (SqlConnection conn = new SqlConnection(strConn))
+            {
+                SqlCommand cmd = new SqlCommand("spUpdateImageInfo", conn);
+                cmd.Parameters.Add(new SqlParameter("@ImageID", int.Parse(imgID)));
+                cmd.Parameters.Add(new SqlParameter("@FileName", txtFileName.Text));
+                cmd.Parameters.Add(new SqlParameter("@AltText", txtAltText.Text));
+                cmd.Parameters.Add(new SqlParameter("@ImageURL", "~/img/" + txtFileName.Text));
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Connection.Open();
+
+                cmd.ExecuteNonQuery();
+
+                File.Move(Server.MapPath(ddlImages.SelectedItem.Text), Server.MapPath("~/img/" + txtFileName.Text));
             }
         }
 
