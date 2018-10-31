@@ -24,7 +24,7 @@ namespace VidiotsWebStore
                 }
                 else if (Session["UserType"].ToString() == "Customer" || Session["UserType"] == null)
                 {
-                    this.MasterPageFile = "~VidiotsTemplate.Master";
+                    this.MasterPageFile = "~/VidiotsTemplate.Master";
                     Session["MasterType"] = "User";
                 }
             }

@@ -380,7 +380,7 @@ namespace VidiotsWebStore
 
                 foreach(DataRow row in dt.Rows)
                 {
-                    items += "<p>"+ row["ProductName"].ToString() + "</p>";
+                    items += "<p>"+ row["ProductName"].ToString() + "<br/>Quantity: " + row["Quantity"].ToString() + "</p>";
                 }
 
                 return items;
