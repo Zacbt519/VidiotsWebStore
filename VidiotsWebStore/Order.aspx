@@ -38,7 +38,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Postal Code:</label>
-                                <asp:TextBox ID="txtBillingPostal" runat="server" MaxLength="6" CssClass="form-control"></asp:TextBox>
+                                <asp:TextBox ID="txtBillingPostal" runat="server" MaxLength="7" CssClass="form-control"></asp:TextBox>
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ErrorMessage="Postal Code/Zip is required" ControlToValidate="txtBillingPostal">*</asp:RequiredFieldValidator>
                                 <asp:RegularExpressionValidator ID="revBillingZip" runat="server" ControlToValidate="txtBillingPostal" ErrorMessage="Postal Code/ZIP not in correct format">*</asp:RegularExpressionValidator>
                             </div>
