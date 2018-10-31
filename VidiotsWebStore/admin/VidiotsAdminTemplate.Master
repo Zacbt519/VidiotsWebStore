@@ -41,6 +41,9 @@
                             <asp:Label ID="lblMasterMessage" runat="server" Text="" CssClass="errorMessage"></asp:Label>
 
             </div>
+            <br />
+            <asp:ValidationSummary ID="ValidationSummary1" runat="server" />
+            <br />
             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
             </asp:ContentPlaceHolder>
         </div>

@@ -19,12 +19,8 @@
         </div>
         <div class="row">
             <div class="col-8">
-            </div>
-        </div>
-    </div>
-    <asp:GridView ID="grvCustomers" runat="server" AutoGenerateColumns="False">
+                <asp:GridView ID="grvCustomers" runat="server" AutoGenerateColumns="False">
         <Columns>
-            <asp:BoundField DataField="CustomerID" HeaderText="CustomerID" />
             <asp:BoundField DataField="CustomerName" HeaderText="Customer Name" />
             <asp:TemplateField HeaderText="IsArchived">
                 <ItemTemplate>
@@ -33,5 +29,14 @@
             </asp:TemplateField>
         </Columns>
     </asp:GridView>
-    <asp:Button ID="btnArchive" runat="server" OnClick="btnArchive_Click" Text="Archive Customers" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-8">
+                <br />
+                    <asp:Button ID="btnArchive" runat="server" OnClick="btnArchive_Click" Text="Archive Customers" />
+            </div>
+        </div>
+    </div>
+    
 </asp:Content>
