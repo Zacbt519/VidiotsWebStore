@@ -61,7 +61,7 @@ namespace VidiotsWebStore
                     cmd.ExecuteNonQuery();
 
                     Session["UserType"] = userType.Value.ToString().Replace(" ", "");
-                    Session["ID"] = userID.Value.ToString().Replace(" ", "");
+                    Session["AdminID"] = userID.Value.ToString().Replace(" ", "");
 
                 }
             }
