@@ -16,6 +16,10 @@ namespace VidiotsWebStore
         VidiotsAdminTemplate master;
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["UserType"].ToString() != "Admin")
+            {
+                Response.Redirect("../index.aspx");
+            }
             master = (VidiotsAdminTemplate)this.Master;
             string productId = Request.QueryString["productId"];
             if (!IsPostBack)
