@@ -97,13 +97,14 @@ namespace VidiotsWebStore.admin
         protected void btnVerify_Click(object sender, EventArgs e)
         {
             string oldUrl = Session["oldUrl"].ToString();
-            string oldFull = Server.MapPath("~/tempImg") + oldUrl.Substring(1, (oldUrl.Length - 1)); 
+            string oldFull = Server.MapPath(oldUrl); 
             string file = oldUrl.Substring(10, (oldUrl.Length - 10));
-            string newUrl = Server.MapPath("~/img") + file;
+            string newUrl = "~/img/" + file;
+            string newFull = Server.MapPath(newUrl);
 
             try
             {
-                System.IO.File.Move(oldFull, newUrl);
+                System.IO.File.Move(oldFull, newFull);
                 SqlCommand cmd = default(SqlCommand);
                 using (SqlConnection conn = new SqlConnection(strConn))
                 {
