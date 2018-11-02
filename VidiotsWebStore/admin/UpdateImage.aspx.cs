@@ -56,6 +56,7 @@ namespace VidiotsWebStore.admin
         {
             imgPreview.ImageUrl = ddlImages.SelectedItem.ToString();
             GetImageData(ddlImages.SelectedValue);
+            master.masterMessage = "";
         }
 
         private void GetImageData(string selectedValue)

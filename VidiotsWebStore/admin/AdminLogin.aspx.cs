@@ -11,7 +11,6 @@ namespace VidiotsWebStore
 {
     public partial class AdminLogin : System.Web.UI.Page
     {
-        string isFromCheckout;
         private string strConn = ConfigurationManager.ConnectionStrings["cnn"].ConnectionString;
         VidiotsAdminTemplate master;
         protected void Page_Load(object sender, EventArgs e)
