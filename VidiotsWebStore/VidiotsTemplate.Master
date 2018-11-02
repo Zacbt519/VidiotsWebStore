@@ -16,31 +16,31 @@
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a href="index.aspx" class="nav-link">Vidiots Retro Store</a>
+                        <a href="../index.aspx" class="nav-link">Vidiots Retro Store</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="ProductsByType.aspx?typeId=1">VHS</a>
+                        <a class="nav-link" href="../ProductsByType.aspx?typeId=1">VHS</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="ProductsByType.aspx?typeId=2">Cassettes</a>
+                        <a class="nav-link" href="../ProductsByType.aspx?typeId=2">Cassettes</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="ProductsByType.aspx?typeId=3">Floppy Disk</a>
+                        <a class="nav-link" href="../ProductsByType.aspx?typeId=3">Floppy Disk</a>
                     </li>
                     
                     <li class="nav-item">
-                        <a class="nav-link" href="Categories.aspx">Categories</a>
+                        <a class="nav-link" href="../Categories.aspx">Categories</a>
                     </li>
                 </ul>
 
                 <div class="form-inline ml-auto" id="search">
-                    <a class="nav-link" href="ShoppingCart.aspx?cart=1" style="color: #fff;">Cart</a>
+                    <a class="nav-link" href="~/ShoppingCart.aspx?cart=1" style="color: #fff;">Cart</a>
                     &nbsp;
                 <asp:TextBox ID="txtSearch" CssClass="form-control mr-sm-2" placeholder="Search" aria-label="Search" runat="server" MaxLength="50"></asp:TextBox>
                     <asp:Button ID="btnSearch" CssClass="btn btn-outline-light my-2 my-sm-0" runat="server" Text="Search" OnClick="btnSearch_Click" CausesValidation="false" />
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a href="CustomerLogin.aspx" class="nav-link">&nbsp;Login</a>
+                            <a href="~/CustomerLogin.aspx" class="nav-link">&nbsp;Login</a>
                         </li>
                     </ul>
                 </div>
@@ -55,6 +55,11 @@
             <br />
             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
             </asp:ContentPlaceHolder>
+            <br /><br />
+            <footer class="footer">
+                <p>&copy; Vidiots <%= DateTime.Now.Year %></p>
+                <a class="footerLink" href="../admin/AdminLogin.aspx">Admin Login</a>
+            </footer>
         </div>
     </form>
 </body>
