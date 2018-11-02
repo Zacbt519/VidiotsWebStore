@@ -112,8 +112,10 @@ namespace VidiotsWebStore.admin
                     cmd = new SqlCommand("spUploadImage", conn);
                     cmd.Parameters.AddWithValue("@ImageURL", strPath);
                     cmd.Parameters.AddWithValue("@AltText", txtAlt.Text);
-                    cmd.Parameters.AddWithValue("@FileName", filename);
+
                     cmd.Parameters.AddWithValue("@AdminIDUpload", Session["AdminID"].ToString());
+                    cmd.Parameters.AddWithValue("@FileName", filename);
+
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     conn.Open();
                     cmd.ExecuteNonQuery();

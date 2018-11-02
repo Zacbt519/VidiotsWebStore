@@ -57,6 +57,7 @@ namespace VidiotsWebStore.admin
         {
             master.masterMessage = "";
             GetImageData(ddlImages.SelectedValue);
+            master.masterMessage = "";
         }
 
         private void GetImageData(string selectedValue)
