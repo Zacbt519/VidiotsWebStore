@@ -17,10 +17,10 @@ namespace VidiotsWebStore.admin
         VidiotsAdminTemplate master;
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["UserType"].ToString() != "Admin")
-            {
-                Response.Redirect("../index.aspx");
-            }
+            //if (Session["UserType"].ToString() != "Admin")
+            //{
+            //    Response.Redirect("../index.aspx");
+            //}
             master = (VidiotsAdminTemplate)this.Master;
             if (!IsPostBack)
             {
@@ -53,8 +53,8 @@ namespace VidiotsWebStore.admin
 
                         if (ImageFormat.Jpeg.Equals(img.RawFormat))
                         {
-                            imgSaved = doSaveImage(strPath, url,filename);
-                            UploadImageToDB(url,filename);
+                            imgSaved = doSaveImage(strPath, url, filename);
+                            UploadImageToDB(url, filename);
                         }
                         else if (ImageFormat.Gif.Equals(img.RawFormat))
                         {
@@ -112,6 +112,7 @@ namespace VidiotsWebStore.admin
                     cmd = new SqlCommand("spUploadImage", conn);
                     cmd.Parameters.AddWithValue("@ImageURL", strPath);
                     cmd.Parameters.AddWithValue("@AltText", txtAlt.Text);
+
                     cmd.Parameters.AddWithValue("@AdminIDUpload", Session["AdminID"].ToString());
                     cmd.Parameters.AddWithValue("@FileName", filename);
 
@@ -121,7 +122,7 @@ namespace VidiotsWebStore.admin
                     master.masterMessage = "Image uploaded!";
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 master.masterMessage = ex.Message;
             }

@@ -103,7 +103,9 @@ namespace VidiotsWebStore.admin
         protected void btnVerify_Click(object sender, EventArgs e)
         {
             string oldUrl = Session["oldUrl"].ToString();
-            string oldFull = Server.MapPath(oldUrl); 
+
+            string oldFull = Server.MapPath(oldUrl);
+
             string file = oldUrl.Substring(10, (oldUrl.Length - 10));
             string newUrl = "~/img/" + file;
             string newFull = Server.MapPath(newUrl);

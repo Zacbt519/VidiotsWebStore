@@ -21,7 +21,7 @@
     </div>
     <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtName" ErrorMessage="Filename is requried"></asp:RequiredFieldValidator>
     <br />
-    <asp:Button ID="btnUpload" runat="server" Text="Upload" OnClick="btnUpload_Click" />
+    <asp:Button ID="btnUpload" runat="server" Text="Upload" CssClass="btn btn-outline-primary" OnClick="btnUpload_Click" />
     <br />
-    <asp:Image ID="imgUploaded" runat="server" CssClass="img-fluid"/>
+    <asp:Image ID="imgUploaded" runat="server" CssClass="img-thumbnail img-responsive searchResultsImg"/>
 </asp:Content>

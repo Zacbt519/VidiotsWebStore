@@ -19,20 +19,21 @@ namespace VidiotsWebStore.admin
         VidiotsAdminTemplate master;
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["UserType"].ToString() != "Admin")
-            {
-                Response.Redirect("../index.aspx");
-            }
+            //if (Session["UserType"].ToString() != "Admin")
+            //{
+            //    Response.Redirect("../index.aspx");
+            //}
             master = (VidiotsAdminTemplate)this.Master;
             if (!IsPostBack)
             {
-                ddlImages.DataTextField = "ImageURL";
+                ddlImages.DataTextField = "FileName";
                 ddlImages.DataValueField = "ImageID";
                 FillComboBox();
                 ddlImages.Items.Insert(0, "---Select an Image---");
                 ddlImages.SelectedIndex = 0;
                 
             }
+            
         }
 
         private void FillComboBox()
@@ -54,7 +55,7 @@ namespace VidiotsWebStore.admin
 
         protected void ddlImages_SelectedIndexChanged(object sender, EventArgs e)
         {
-            imgPreview.ImageUrl = ddlImages.SelectedItem.ToString();
+            master.masterMessage = "";
             GetImageData(ddlImages.SelectedValue);
             master.masterMessage = "";
         }
@@ -73,7 +74,12 @@ namespace VidiotsWebStore.admin
                 {
                     dr.Read();
                     txtAltText.Text = dr["AltText"].ToString();
-                    txtFileName.Text = dr["FileName"].ToString();
+                    int extIndex = dr["FileName"].ToString().IndexOf(".");
+                    string fullExt = dr["FileName"].ToString().Substring(extIndex, (dr["FileName"].ToString().Length - extIndex));
+                    int extLength = fullExt.Length;
+                    string filename = dr["FileName"].ToString().Substring(0, (dr["FileName"].ToString().Length - extLength));
+                    txtFileName.Text = filename;
+                    imgPreview.ImageUrl = dr["ImageURL"].ToString();
                 }
             }
         }
@@ -86,7 +92,7 @@ namespace VidiotsWebStore.admin
             }
             else
             {
-                System.Drawing.Image image = System.Drawing.Image.FromFile(Server.MapPath(ddlImages.SelectedItem.Text));
+                System.Drawing.Image image = System.Drawing.Image.FromFile(Server.MapPath("~/img/" + ddlImages.SelectedItem.Text));
 
                 if (ImageFormat.Jpeg.Equals(image.RawFormat))
                 {
@@ -133,7 +139,9 @@ namespace VidiotsWebStore.admin
             {
                 SqlCommand cmd = new SqlCommand("spUpdateImageInfo", conn);
                 cmd.Parameters.Add(new SqlParameter("@ImageID", int.Parse(imgID)));
-                cmd.Parameters.Add(new SqlParameter("@FileName", txtFileName.Text));
+                int extIndex = ddlImages.SelectedItem.ToString().IndexOf(".");
+                string ext = ddlImages.SelectedItem.ToString().Substring(extIndex, (ddlImages.SelectedItem.ToString().Length - extIndex));
+                cmd.Parameters.Add(new SqlParameter("@FileName", txtFileName.Text + ext));
                 cmd.Parameters.Add(new SqlParameter("@AltText", txtAltText.Text));
                 cmd.Parameters.Add(new SqlParameter("@ImageURL", "~/img/" + txtFileName.Text + fileType));
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -143,11 +151,16 @@ namespace VidiotsWebStore.admin
 
                 cmd.Connection.Close();
                 
-                File.Move(Server.MapPath(ddlImages.SelectedItem.Text), Server.MapPath("~/img/" + txtFileName.Text + fileType));
+                File.Move(Server.MapPath("../img/" + ddlImages.SelectedItem.Text), Server.MapPath("../img/" + txtFileName.Text + fileType));
                 master.masterMessage = "Image update successfully";
                 ddlImages.DataSource = null;
                 ddlImages.DataBind();
                 FillComboBox();
+                RefreshFolder();
+                ddlImages.Items.Insert(0, "---Select an Image---");
+                imgPreview.ImageUrl = "";
+                txtAltText.Text = "";
+                txtFileName.Text = "";
             }
         }
 
@@ -238,6 +251,17 @@ namespace VidiotsWebStore.admin
                 FillComboBox();
                 File.Delete(Server.MapPath(output.Value.ToString()));
                    
+            }
+        }
+
+        private void RefreshFolder()
+        {
+            if (Directory.Exists(Server.MapPath("/img")))
+            {
+                Directory.GetFiles(Server.MapPath("/img"));
+
+                DirectoryInfo dir = new DirectoryInfo(Server.MapPath("/img"));
+                dir.Refresh();
             }
         }
     }
