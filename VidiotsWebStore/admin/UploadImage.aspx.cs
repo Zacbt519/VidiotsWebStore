@@ -17,6 +17,10 @@ namespace VidiotsWebStore.admin
         VidiotsAdminTemplate master;
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["UserType"].ToString() != "Admin")
+            {
+                Response.Redirect("../index.aspx");
+            }
             master = (VidiotsAdminTemplate)this.Master;
             if (!IsPostBack)
             {
@@ -108,7 +112,9 @@ namespace VidiotsWebStore.admin
                     cmd = new SqlCommand("spUploadImage", conn);
                     cmd.Parameters.AddWithValue("@ImageURL", strPath);
                     cmd.Parameters.AddWithValue("@AltText", txtAlt.Text);
+                    cmd.Parameters.AddWithValue("@AdminIDUpload", Session["AdminID"].ToString());
                     cmd.Parameters.AddWithValue("@FileName", filename);
+
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     conn.Open();
                     cmd.ExecuteNonQuery();

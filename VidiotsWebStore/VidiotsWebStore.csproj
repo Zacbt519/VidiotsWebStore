@@ -66,12 +66,10 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-
+    <Content Include="admin\AdminLogin.aspx" />
     <Content Include="admin\UpdateImage.aspx" />
-
     <Content Include="admin\UploadImage.aspx" />
     <Content Include="admin\VerifyImages.aspx" />
-
     <Content Include="admin\VidiotsAdminTemplate.Master" />
     <None Include="packages.config" />
     <Content Include="admin\AddCategory.aspx" />
@@ -118,6 +116,13 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="admin\AdminLogin.aspx.cs">
+      <DependentUpon>AdminLogin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\AdminLogin.aspx.designer.cs">
+      <DependentUpon>AdminLogin.aspx</DependentUpon>
+    </Compile>
     <Compile Include="admin\AddCategory.aspx.cs">
       <DependentUpon>AddCategory.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -139,15 +144,14 @@
     <Compile Include="admin\AdminSearchResults.aspx.designer.cs">
       <DependentUpon>AdminSearchResults.aspx</DependentUpon>
     </Compile>
-
     <Compile Include="admin\UpdateImage.aspx.cs">
       <DependentUpon>UpdateImage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="admin\UpdateImage.aspx.designer.cs">
       <DependentUpon>UpdateImage.aspx</DependentUpon>
-	  <SubType>ASPXCodeBehind</SubType>
-	</Compile>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="admin\UploadImage.aspx.cs">
       <DependentUpon>UploadImage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -161,7 +165,6 @@
     </Compile>
     <Compile Include="admin\VerifyImages.aspx.designer.cs">
       <DependentUpon>VerifyImages.aspx</DependentUpon>
-
     </Compile>
     <Compile Include="admin\VidiotsAdminTemplate.Master.cs">
       <DependentUpon>VidiotsAdminTemplate.Master</DependentUpon>
@@ -299,7 +302,7 @@
     </Compile>
     <Compile Include="VidiotsTemplate.Master.designer.cs">
       <DependentUpon>VidiotsTemplate.Master</DependentUpon>
-	  <SubType>ASPXCodeBehind</SubType>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>

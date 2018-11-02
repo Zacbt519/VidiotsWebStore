@@ -9,6 +9,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Data.Sql;
 using System.IO;
+using System.Drawing.Imaging;
 
 namespace VidiotsWebStore.admin
 {
@@ -18,6 +19,10 @@ namespace VidiotsWebStore.admin
         VidiotsAdminTemplate master;
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["UserType"].ToString() != "Admin")
+            {
+                Response.Redirect("../index.aspx");
+            }
             master = (VidiotsAdminTemplate)this.Master;
             if (!IsPostBack)
             {
@@ -51,6 +56,7 @@ namespace VidiotsWebStore.admin
         {
             imgPreview.ImageUrl = ddlImages.SelectedItem.ToString();
             GetImageData(ddlImages.SelectedValue);
+            master.masterMessage = "";
         }
 
         private void GetImageData(string selectedValue)
@@ -80,20 +86,48 @@ namespace VidiotsWebStore.admin
             }
             else
             {
-                if(txtFileName.Text.Contains(".jpg") || txtFileName.Text.Contains(".png"))
+                System.Drawing.Image image = System.Drawing.Image.FromFile(Server.MapPath(ddlImages.SelectedItem.Text));
+
+                if (ImageFormat.Jpeg.Equals(image.RawFormat))
                 {
-                    UpdateImageInfo(ddlImages.SelectedValue);
-                    
+                    image.Dispose();
+                    UpdateImageInfo(ddlImages.SelectedValue, ".jpg");
+                }
+                else if (ImageFormat.Bmp.Equals(image.RawFormat))
+                {
+                    image.Dispose();
+                    UpdateImageInfo(ddlImages.SelectedValue, ".bmp");
+                }
+                else if (ImageFormat.Gif.Equals(image.RawFormat))
+                {
+                    image.Dispose();
+                    UpdateImageInfo(ddlImages.SelectedValue, ".gif");
+                }
+                else if (ImageFormat.Icon.Equals(image.RawFormat))
+                {
+                    image.Dispose();
+                    UpdateImageInfo(ddlImages.SelectedValue, ".ico");
+                }
+                else if (ImageFormat.Png.Equals(image.RawFormat))
+                {
+                    image.Dispose();
+                    UpdateImageInfo(ddlImages.SelectedValue, ".png");
+                }
+                else if (ImageFormat.Tiff.Equals(image.RawFormat))
+                {
+                    image.Dispose();
+                    UpdateImageInfo(ddlImages.SelectedValue, ".tiff");
                 }
                 else
                 {
-                    master.masterMessage = "File name must have a file extension! (Ex. .jpg, .png)";
+                    image.Dispose();
+                    master.masterMessage = "File type is not accpeted";
                 }
-                
+
             }
         }
 
-        private void UpdateImageInfo(string imgID)
+        private void UpdateImageInfo(string imgID, string fileType)
         {
             using (SqlConnection conn = new SqlConnection(strConn))
             {
@@ -101,13 +135,19 @@ namespace VidiotsWebStore.admin
                 cmd.Parameters.Add(new SqlParameter("@ImageID", int.Parse(imgID)));
                 cmd.Parameters.Add(new SqlParameter("@FileName", txtFileName.Text));
                 cmd.Parameters.Add(new SqlParameter("@AltText", txtAltText.Text));
-                cmd.Parameters.Add(new SqlParameter("@ImageURL", "~/img/" + txtFileName.Text));
+                cmd.Parameters.Add(new SqlParameter("@ImageURL", "~/img/" + txtFileName.Text + fileType));
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection.Open();
 
                 cmd.ExecuteNonQuery();
 
-                File.Move(Server.MapPath(ddlImages.SelectedItem.Text), Server.MapPath("~/img/" + txtFileName.Text));
+                cmd.Connection.Close();
+                
+                File.Move(Server.MapPath(ddlImages.SelectedItem.Text), Server.MapPath("~/img/" + txtFileName.Text + fileType));
+                master.masterMessage = "Image update successfully";
+                ddlImages.DataSource = null;
+                ddlImages.DataBind();
+                FillComboBox();
             }
         }
 
