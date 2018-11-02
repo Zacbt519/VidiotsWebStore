@@ -8,9 +8,8 @@
     <div class="container-fluid">
         <h1 id="header" runat="server">Featured Items</h1>
         <br />
-        
-                <ul class="list-group">
-                <asp:Repeater ID="rptFeaturedProducts" runat="server">
+        <ul class="list-group">
+            <asp:Repeater ID="rptFeaturedProducts" runat="server">
                 <ItemTemplate>
                     <li class="list-group-item">
                         <asp:Image ID="productImage" CssClass="img-responsive img-thumbnail searchResultsImg" ImageUrl='<%# Eval("ImageURL") %>' AlternateText='<%# Eval("AltText") %>' Visible="true" runat="server" />
@@ -24,17 +23,7 @@
                     </li>
                 </ItemTemplate>
             </asp:Repeater>
-                     </ul> 
-            </div>
-        
-       
-            
-                
-            
-            
-        </div>
-            
-          
-        
-    
+        </ul>
+    </div>
+    <br /><br /><br />
 </asp:Content>

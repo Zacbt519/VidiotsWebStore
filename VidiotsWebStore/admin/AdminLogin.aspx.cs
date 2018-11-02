@@ -13,10 +13,10 @@ namespace VidiotsWebStore
     {
         string isFromCheckout;
         private string strConn = ConfigurationManager.ConnectionStrings["cnn"].ConnectionString;
-        VidiotsAdminTemplate master;
+        VidiotsTemplate master;
         protected void Page_Load(object sender, EventArgs e)
         {
-            master = (VidiotsAdminTemplate)this.Master;
+            master = (VidiotsTemplate)this.Master;
             
         }
 

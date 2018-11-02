@@ -3,6 +3,11 @@
     margin-bottom:2%;
 }
 
+html{
+    position:relative;
+    min-height:100%;
+}
+
 .card-img-top {
     
     
@@ -27,4 +32,24 @@
 
 #btnUpdate{
     margin-right:1%;
+}
+
+.footer{
+    position:absolute;
+    left:0;
+    bottom:0;
+    width:100%;
+    overflow:hidden;
+    background-color: #525864;
+    color: white;
+    text-align:center;
+
+}
+
+.footerLink{
+    color:white;
+}
+
+.footerLink:hover{
+    color:white;
 }
