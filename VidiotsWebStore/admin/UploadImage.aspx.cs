@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -35,7 +36,10 @@ namespace VidiotsWebStore.admin
                     if (uplPics.PostedFile.ContentLength <= intSizeLimit)
                     {
                         string strPath = Server.MapPath("~/tempImg") + "\\" + uplPics.FileName;
-                        string url = "~/tempImg/" + uplPics.FileName;
+                        int extIndex = uplPics.FileName.IndexOf(".");
+                        string fileExt = uplPics.FileName.Substring(extIndex, (uplPics.FileName.Length - extIndex));
+                        string filename = txtName.Text + fileExt;
+                        string url = "~/tempImg/" + filename;
 
                         string strContentType = uplPics.PostedFile.ContentType;
 
@@ -45,28 +49,28 @@ namespace VidiotsWebStore.admin
 
                         if (ImageFormat.Jpeg.Equals(img.RawFormat))
                         {
-                            imgSaved = doSaveImage(strPath, url);
-                            UploadImageToDB(strPath);
+                            imgSaved = doSaveImage(strPath, url,filename);
+                            UploadImageToDB(url,filename);
                         }
                         else if (ImageFormat.Gif.Equals(img.RawFormat))
                         {
-                            imgSaved = doSaveImage(strPath, url);
-                            UploadImageToDB(strPath);
+                            imgSaved = doSaveImage(strPath, url, filename);
+                            UploadImageToDB(url, filename);
                         }
                         else if (ImageFormat.Bmp.Equals(img.RawFormat))
                         {
-                            imgSaved = doSaveImage(strPath, url);
-                            UploadImageToDB(strPath);
+                            imgSaved = doSaveImage(strPath, url, filename);
+                            UploadImageToDB(url, filename);
                         }
                         else if (ImageFormat.Png.Equals(img.RawFormat))
                         {
-                            imgSaved = doSaveImage(strPath, url);
-                            UploadImageToDB(strPath);
+                            imgSaved = doSaveImage(strPath, url, filename);
+                            UploadImageToDB(url, filename);
                         }
                         else if (ImageFormat.Tiff.Equals(img.RawFormat))
                         {
-                            imgSaved = doSaveImage(strPath, url);
-                            UploadImageToDB(strPath);
+                            imgSaved = doSaveImage(strPath, url, filename);
+                            UploadImageToDB(url, filename);
                         }
                         else
                         {
@@ -92,7 +96,7 @@ namespace VidiotsWebStore.admin
             }
         }
 
-        private void UploadImageToDB(string strPath)
+        private void UploadImageToDB(string strPath, string filename)
         {
             string alt = txtAlt.Text;
             string name = txtName.Text;
@@ -104,7 +108,7 @@ namespace VidiotsWebStore.admin
                     cmd = new SqlCommand("spUploadImage", conn);
                     cmd.Parameters.AddWithValue("@ImageURL", strPath);
                     cmd.Parameters.AddWithValue("@AltText", txtAlt.Text);
-                    cmd.Parameters.AddWithValue("@FileName", txtName.Text);
+                    cmd.Parameters.AddWithValue("@FileName", filename);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     conn.Open();
                     cmd.ExecuteNonQuery();
@@ -117,7 +121,7 @@ namespace VidiotsWebStore.admin
             }
         }
 
-        private bool doSaveImage(string strPath, string url)
+        private bool doSaveImage(string strPath, string url, string filename)
         {
             try
             {
@@ -125,6 +129,7 @@ namespace VidiotsWebStore.admin
                 master.masterMessage = "Image saved to: " + url;
                 imgUploaded.ImageUrl = url;
                 imgUploaded.EnableViewState = true;
+                File.Move(Server.MapPath("~/tempImg/" + uplPics.FileName), Server.MapPath("~/tempImg/" + filename));
                 return true;
             }
             catch (Exception ex)
