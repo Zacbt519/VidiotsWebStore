@@ -55,7 +55,7 @@ namespace VidiotsWebStore.admin
 
         protected void ddlImages_SelectedIndexChanged(object sender, EventArgs e)
         {
-            imgPreview.ImageUrl = Server.MapPath("../img/" + ddlImages.SelectedItem.ToString());
+            master.masterMessage = "";
             GetImageData(ddlImages.SelectedValue);
         }
 
@@ -73,7 +73,12 @@ namespace VidiotsWebStore.admin
                 {
                     dr.Read();
                     txtAltText.Text = dr["AltText"].ToString();
-                    txtFileName.Text = dr["FileName"].ToString();
+                    int extIndex = dr["FileName"].ToString().IndexOf(".");
+                    string fullExt = dr["FileName"].ToString().Substring(extIndex, (dr["FileName"].ToString().Length - extIndex));
+                    int extLength = fullExt.Length;
+                    string filename = dr["FileName"].ToString().Substring(0, (dr["FileName"].ToString().Length - extLength));
+                    txtFileName.Text = filename;
+                    imgPreview.ImageUrl = dr["ImageURL"].ToString();
                 }
             }
         }
@@ -133,7 +138,9 @@ namespace VidiotsWebStore.admin
             {
                 SqlCommand cmd = new SqlCommand("spUpdateImageInfo", conn);
                 cmd.Parameters.Add(new SqlParameter("@ImageID", int.Parse(imgID)));
-                cmd.Parameters.Add(new SqlParameter("@FileName", txtFileName.Text));
+                int extIndex = ddlImages.SelectedItem.ToString().IndexOf(".");
+                string ext = ddlImages.SelectedItem.ToString().Substring(extIndex, (ddlImages.SelectedItem.ToString().Length - extIndex));
+                cmd.Parameters.Add(new SqlParameter("@FileName", txtFileName.Text + ext));
                 cmd.Parameters.Add(new SqlParameter("@AltText", txtAltText.Text));
                 cmd.Parameters.Add(new SqlParameter("@ImageURL", "~/img/" + txtFileName.Text + fileType));
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -149,6 +156,10 @@ namespace VidiotsWebStore.admin
                 ddlImages.DataBind();
                 FillComboBox();
                 RefreshFolder();
+                ddlImages.Items.Insert(0, "---Select an Image---");
+                imgPreview.ImageUrl = "";
+                txtAltText.Text = "";
+                txtFileName.Text = "";
             }
         }
 

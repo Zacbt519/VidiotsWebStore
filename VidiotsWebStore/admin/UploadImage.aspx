@@ -23,5 +23,5 @@
     <br />
     <asp:Button ID="btnUpload" runat="server" Text="Upload" CssClass="btn btn-outline-primary" OnClick="btnUpload_Click" />
     <br />
-    <asp:Image ID="imgUploaded" runat="server" CssClass="img-thumbnail img-responsive"/>
+    <asp:Image ID="imgUploaded" runat="server" CssClass="img-thumbnail img-responsive searchResultsImg"/>
 </asp:Content>
