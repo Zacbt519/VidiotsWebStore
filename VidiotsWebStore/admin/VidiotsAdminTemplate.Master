@@ -46,6 +46,10 @@
             <br />
             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
             </asp:ContentPlaceHolder>
+            <footer class="footer">
+                <p>&copy; Vidiots <%= DateTime.Now.Year %></p>
+                <a class="footerLink" href="../admin/AdminLogin.aspx">Admin Login</a>
+            </footer>
         </div>
     </form>
 </body>
