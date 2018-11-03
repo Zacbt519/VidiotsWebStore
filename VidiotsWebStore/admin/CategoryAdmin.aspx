@@ -23,6 +23,7 @@
         </div>
         <div class="row">
             <div class="col">
+                <br />
                 <a href="AddCategory.aspx" class="btn btn-info">Add New Category</a>
             </div>
         </div>

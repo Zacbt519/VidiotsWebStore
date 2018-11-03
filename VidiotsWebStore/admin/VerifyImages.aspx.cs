@@ -13,9 +13,14 @@ namespace VidiotsWebStore.admin
     public partial class VerifyImages : System.Web.UI.Page
     {
         private string strConn = ConfigurationManager.ConnectionStrings["cnn"].ConnectionString;
+        private string uploadedBy;
         VidiotsAdminTemplate master;
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["UserType"].ToString() != "Admin")
+            {
+                Response.Redirect("../index.aspx");
+            }
             master = (VidiotsAdminTemplate)this.Master;
             if (!IsPostBack)
             {
@@ -81,6 +86,7 @@ namespace VidiotsWebStore.admin
                         Session["oldUrl"] = dr["ImageURL"].ToString();
                         img.ImageUrl = dr["ImageURL"].ToString();
                         img.EnableViewState = true;
+                        uploadedBy = dr["AdminIDUpload"].ToString();
                     }
                 }
             }
@@ -97,33 +103,43 @@ namespace VidiotsWebStore.admin
         protected void btnVerify_Click(object sender, EventArgs e)
         {
             string oldUrl = Session["oldUrl"].ToString();
-            string oldFull = Server.MapPath("~/tempImg") + oldUrl.Substring(1, (oldUrl.Length - 1)); 
+
+            string oldFull = Server.MapPath(oldUrl);
+
             string file = oldUrl.Substring(10, (oldUrl.Length - 10));
-            string newUrl = Server.MapPath("~/img") + file;
+            string newUrl = "~/img/" + file;
+            string newFull = Server.MapPath(newUrl);
 
             try
             {
-                System.IO.File.Move(oldFull, newUrl);
+                System.IO.File.Move(oldFull, newFull);
                 SqlCommand cmd = default(SqlCommand);
                 using (SqlConnection conn = new SqlConnection(strConn))
                 {
-                    cmd = new SqlCommand("spVerifyImage", conn);
-                    cmd.Parameters.AddWithValue("@ImageID", int.Parse(ddlImageName.SelectedValue));
-                    cmd.Parameters.AddWithValue("@ImageURL", newUrl);
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    conn.Open();
+                    if(uploadedBy != Session["AdminID"].ToString())
+                    {
+                        cmd = new SqlCommand("spVerifyImage", conn);
+                        cmd.Parameters.AddWithValue("@ImageID", int.Parse(ddlImageName.SelectedValue));
+                        cmd.Parameters.AddWithValue("@ImageURL", newUrl);
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        conn.Open();
 
-                    cmd.ExecuteNonQuery();
+                        cmd.ExecuteNonQuery();
 
-                    ddlImageName.DataSource = null;
-                    ddlImageName.DataBind();
-                    ddlImageName.Items.Clear();
-                    GetImageURLs();
-                    img.ImageUrl = "";
-                    img.EnableViewState = false;
-                    txtAlt.Text = "";
-                    txtName.Text = "";
-                    master.masterMessage = "Image verified";
+                        ddlImageName.DataSource = null;
+                        ddlImageName.DataBind();
+                        ddlImageName.Items.Clear();
+                        GetImageURLs();
+                        img.ImageUrl = "";
+                        img.EnableViewState = false;
+                        txtAlt.Text = "";
+                        txtName.Text = "";
+                        master.masterMessage = "Image verified";
+                    }
+                    else
+                    {
+                        master.masterMessage = "Image cannot be verified by the same user that uploaded it.";
+                    }
                 }
             }
             catch(Exception ex)

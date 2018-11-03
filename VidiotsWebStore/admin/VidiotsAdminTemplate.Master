@@ -25,7 +25,16 @@
                         <a class="nav-link" href="/admin/AddProduct.aspx">Add New Product</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/admin/CategoryAdmin.aspx">Categories</a>
+                        <a class="nav-link" href="/admin/CategoryAdmin.aspx">Manage Categories</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/UploadImage.aspx">Upload Image</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/VerifyImages.aspx">Verfiy Image</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/UpdateImage.aspx">Update Image</a>
                     </li>
                 </ul>
 
